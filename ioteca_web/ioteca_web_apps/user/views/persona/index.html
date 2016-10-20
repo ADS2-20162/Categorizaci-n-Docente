@@ -1,0 +1,19 @@
+<div ng-cloak>
+	<md-content class="md-padding" layout-xs="column">
+		<div flex-xs flex-gt-xs>
+			<md-card >
+				<md-card-actions layout="row"  layout-xs="column">
+                    <md-card-icon-actions  layout-align="center">
+                        <md-button flex="30" class="md-primary" ui-sref=".dato">Perfil</md-button>
+                        <md-button flex="30" class="md-primary" ui-sref=".password">Seguridad</md-button>
+                    </md-card-icon-actions>
+                </md-card-actions>
+                <md-divider></md-divider>
+                <md-content>
+                	<div ui-view>
+            		</div>
+                </md-content>
+			</md-card>
+		</div>
+	</md-content>
+</div>

@@ -1,0 +1,187 @@
+<div ng-cloak>
+    <md-content class="md-padding" layout-xs="column">
+        <div flex-xs flex-gt-xs>
+            <md-card ng-controller="AreaPerfilCtrl">
+
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Catalogo de perfiles</span>
+                        <span class="md-subhead">Configurar Perfil</span>
+                    </md-card-title-text>
+                    <md-button class="md-raised md-primary" ui-sref="gperfil.perfil">
+                            <md-tooltip md-autohide>Regresar</md-tooltip>
+                            <ng-md-icon icon="arrow_back"></ng-md-icon>
+                    Regresar</md-button>
+                </md-card-title>
+
+                <md-divider></md-divider>
+                <div class="md-padding">
+
+                    Perfil: 
+                    <span >
+                            <ng-md-icon icon="account_circle" aria-label="title"></ng-md-icon>
+                            <strong >{{perfil.nombre}}</strong>
+                    </span>
+                    <md-divider></md-divider>
+                    <br>
+
+                    <div layout="row" layout-xs="column" layout-align-xs="start center">
+                        <md-card class="page" flex="50">
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th colspan="3">Areas Disponibles</th>
+                                    <th> 
+                                        <md-button align="right" class="md-fab md-mini md-primary" aria-label="Add" ng-click="new($event)">
+                                            <md-tooltip md-autohide>Añadir</md-tooltip>
+                                            <ng-md-icon icon="add" aria-label="Add"></ng-md-icon>
+                                        </md-button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <md-divider></md-divider>
+                            <tbody>
+                                <tr ng-repeat="d in lista">
+                                    <td class="md-padding" >{{ $index + 1 }}</td>
+                                    <td >{{ d.nombre }}</td>
+                                    <td >
+                                        <input required type="number" ng-model="ponderado" class="inputtexbox" min="1" max="100">
+                                        <md-tooltip md-autohide>Ponderado</md-tooltip>
+                                        <div ng-messages="ponderado.$error"></div>
+                                    </td>
+
+                                    <td>
+                                    <md-button type="reset" class="md-icon-button" aria-label="Eat cake"
+                                    ng-click="guardarAreaPerfil(d.nombre,
+                                    perfil.nombre, ponderado)">
+                                    <ng-md-icon size="20" icon="send" ></ng-md-icon>
+                                    <md-tooltip md-autohide>Enviar</md-tooltip>
+                                    </md-button>
+                                    </td>
+                        
+                                </tr>
+                            </tbody>
+                        </table>
+                        </md-card>
+                        
+                        <md-card class="page" flex="50">
+                        <table>
+                            <thead>
+                                <tr align="center">
+                                    <th colspan="7">Areas activas del perfil
+                                        {{perfil.nombre}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="d in lista_ap">
+                                    <td class="md-padding" width="50">{{$index +1}}</td>
+                                    <td width="250">{{d.area}}</td>
+                                    <td ng-init="d.isEditable = false">
+                                    <span ng-hide="d.isEditable">{{d.ponderado}}</span> 
+                                    <input required type="number" ng-model="d.ponderado" class="inputtexbox" ng-show="d.isEditable" ng-keydown="editPtj($event, d)" id="MyText{{d.id}}" ng-blur="ocultarInput(d)"  min="1" max="100"> 
+                                    </td>
+                                    <!-- <td></td> -->
+                                    <td width="30">
+                                        <a class="md-icon-button md-primary" ng-click="showInput(d,'MyText'+d.id)">
+                                            <md-tooltip md-autohide>Editar</md-tooltip>
+                                            <ng-md-icon size="18" icon="edit" aria-label="Edit" ></ng-md-icon>
+                                        </a> 
+                                    </td>
+                                    <td width="30"> 
+                                        <a class="md-icon-button md-primary" aria-label="delete" ng-click="eliminarAPerfil(d)">
+                                            <md-tooltip md-autohide>Quitar</md-tooltip>
+                                            <ng-md-icon size="18" icon="clear" aria-label="delete" ></ng-md-icon>
+                                        </a>
+                                    </td>
+                                    <td width="30">
+                                        <a class="md-icon-button md-primary" title="Configurar {{d.area}}" ui-sref="gperfil.confsubareaperfil({sap_id:d.id})">
+                                            <md-tooltip md-autohide>Configurar</md-tooltip>
+                                            <ng-md-icon size="18" icon="settings" aria-label="Conf"></ng-md-icon>
+                                        </a >
+                                    </td>
+                                </tr>
+
+                                
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="5" align="center">Total del Ponderado = 
+                                        <md-button class="md-raised ">
+                                        <span class="ng-binding ng-scope">{{suma}}/100</span>
+                                        <md-tooltip md-autohide>Total</md-tooltip>
+                                        </md-button> 
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        </md-card>
+                    </div>
+
+                    <div layout="row" layout-xs="column" layout-align-xs="start center">
+                        <md-card class="page" flex="50">
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Dimensiones Disponibles</th>
+                                    <th> 
+                                        <md-button align="right" class="md-fab md-mini md-primary" aria-label="Add" ng-click="newDimension($event)">
+                                            <md-tooltip md-autohide>Añadir</md-tooltip>
+                                            <ng-md-icon icon="add" aria-label="Add"></ng-md-icon>
+                                        </md-button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="d in listaD">
+                                    <td class="md-padding" >{{ $index + 1 }}</td>
+                                    <td>{{ d.nombre }}</td>
+                            
+                                    <td>
+                                    <md-button  class="md-icon-button" aria-label="Eat cake" ng-click="guardarDimensionPerfil(d.nombre,
+                                    perfil.nombre)">
+                                    <ng-md-icon size="20" icon="send"></ng-md-icon>
+                                    <md-tooltip md-autohide>Enviar</md-tooltip>
+                                    </md-button>
+                                    </td>
+                        
+                                </tr>
+                            </tbody>
+                        </table>
+                        </md-card>
+                        
+                        <md-card class="page" flex="50">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th colspan="5">Dimensiones activas del perfil
+                                        {{perfil.nombre}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="d in lista_dp">
+                                    <td class="md-padding">{{$index +1}}</td>
+                                    <td>{{d.dimension}}</td>
+                                    <td width="50">
+                                        <a class="md-icon-button" aria-label="delete" ng-click="eliminarDPerfil(d)">
+                                            <md-tooltip md-autohide>Quitar {{ d.dimension }}</md-tooltip>
+                                            <ng-md-icon size="18" icon="clear" aria-label="delete" size="30"></ng-md-icon>
+                                        </a>
+                                    </td>
+                                    <td width="50">
+                                        <a class="md-icon-button" title="Configurar {{d.dimension}}" ui-sref="gperfil.confescaladim({dp_id:d.id})">
+                                            <md-tooltip md-autohide>Configurar {{ d.dimension }}</md-tooltip>
+                                            <ng-md-icon size="18" icon="settings" aria-label="Edit" size="30"></ng-md-icon>
+                                        </a>
+                                    </td>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </md-card>
+                    </div>
+                </div>   
+            </md-card>
+        </div>
+    </md-content>
+</div>

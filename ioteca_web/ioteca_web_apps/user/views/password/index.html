@@ -1,0 +1,27 @@
+<div ng-controller="PersonaCtrl" ng-cloak align="center">
+  <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex layout="column">
+      <div md-theme-watch align="center">
+        <div align="center">
+            <span class="md-headline">Seguridad del Usuario</span> 
+        </div>
+        <md-divider></md-divider>
+        </br>
+        <div align="center" ng-repeat="d in listaU">
+            <span class="md-subhead">Usuario: {{d.username}}</span>
+            </br>
+            <div>
+            <ng-md-icon size="60" icon="vpn_key" aria-label="Add"></ng-md-icon>
+            </div>
+            </br>
+            <md-card-icon-actions layout-align="end center">
+                <md-button class="md-primary md-hue-1" aria-label="change" ng-click="chanPass(d)">Cambiar Contraseña
+                </md-button>
+            </md-card-icon-actions> 
+        </div>
+      </div>
+    </div>
+   
+    </div>
+  </md-content>
+</div>

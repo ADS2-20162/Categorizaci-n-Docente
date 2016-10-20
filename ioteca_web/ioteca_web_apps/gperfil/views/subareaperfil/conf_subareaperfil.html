@@ -1,0 +1,89 @@
+<div ng-cloak>
+    <md-content class="md-padding" layout-xs="column">
+        <div flex-xs flex-gt-xs>
+            <md-card ng-controller="SubareaPerfilCtrl">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Catalogo de Perfiles</span>
+                        <span class="md-subhead">Configurar Sub AreaPerfil</span>
+                    </md-card-title-text>
+                    <md-button class="md-raised md-primary" ng-click="goBack()">
+                            <md-tooltip md-autohide>Regresar</md-tooltip>
+                            <ng-md-icon icon="arrow_back" ></ng-md-icon>
+                    Regresar</md-button>
+                </md-card-title>
+                <md-divider></md-divider>
+                <div class="md-padding">
+                    Perfil:
+                    <span>
+                        <ng-md-icon icon="account_circle" arial-label="title"></ng-md-icon>
+                        <strong>{{aperfil.perfil}}</strong>
+                    </span>
+                    Area:
+                    <span>
+                        <ng-md-icon icon="view_array" arial-label="title"></ng-md-icon>
+                        <strong title="Area del perfil {{aperfil.perfil}}">{{aperfil.area}}</strong>
+                    </span>
+                    <md-divider></md-divider>
+                    <div layout="row" layout-xs="column" layout-align-xs="start center">
+                        <md-card class="page" flex >
+                            <table md-table>
+                                <thead md-head>
+                                    <tr md-row>
+                                        <th md-column md-column colspan="2">Subareas Disponibles</th>
+                                        <th md-column>
+                                            <md-button align="right" class="md-fab md-mini md-primary" aria-label="Add" ng-click="new($event)">
+                                                <md-tooltip md-autohide>Añadir</md-tooltip>
+                                                <ng-md-icon icon="add" aria-label="Add"></ng-md-icon>
+                                            </md-button>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody md-body>
+                                    <tr md-row ng-repeat="d in listaSA">
+                                        <td md-cell class="md-padding">{{$index +1}}</td>
+                                        <td md-cell>{{d.nombre}}</td>
+                                        <td md-cell>
+                                            <md-button class="md-icon-button" aria-label="Eat cake" ng-click="guardarsap(aperfil.id,d.nombre)">
+                                                <md-tooltip md-autohide>Enviar</md-tooltip>
+                                                <ng-md-icon size="20" icon="send" ></ng-md-icon>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-card>
+
+                        <md-card class="page" flex>
+                        <table md-table>
+                            <thead md-head>
+                                <tr md-row>
+                                    <th md-column md-column colspan="4">Subareas del Area {{aperfil.area}}</th>
+                                </tr>
+                            </thead>
+                            <tbody md-body>
+                                <tr ng-repeat="d in lista_sap">
+                                    <td md-cell class="md-padding">{{$index +1}}</td>
+                                    <td md-cell>{{d.subarea}}</td>
+                                    <td md-cell width="50">
+                                        <a class="md-icon-button" aria-label="delete" ng-click="delete(d)">
+                                            <md-tooltip md-autohide>Quitar {{ d.subarea }}</md-tooltip>
+                                            <ng-md-icon size="20" icon="clear"></ng-md-icon>
+                                        </a>
+                                    </td>
+                                    <td width="50">
+                                        <a class="md-icon-button" aria-label="Edit" ui-sref="gperfil.confcompetperfil({sap_id:d.id})">
+                                            <md-tooltip md-autohide>Configurar {{d.subarea }}</md-tooltip>
+                                            <ng-md-icon size="20" icon="settings"></ng-md-icon>
+                                        </a>
+                                    </td>
+                                </tr>    
+                            </tbody>
+                        </table>                           
+                        </md-card>
+                    </div>
+                </div>
+            </md-card>
+        </div>
+    </md-content>    
+</div>

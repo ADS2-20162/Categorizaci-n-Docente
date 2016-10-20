@@ -1,0 +1,139 @@
+app
+	.factory('ApiUser', function($resource, config_auths){
+		var url = config_auths.userUrl;
+		var url1 = config_auths.catUrl;
+		var url2 = config_auths.cgenUrl;
+		var url3 = config_auths.gperfilUrl;
+                
+                var url = config_auths.authsUrl;
+		var url1 = config_auths.clegUrl;
+		var url2 = config_auths.rlegUrl;
+		var url3 = config_auths.cgenUrl;
+		var url4 = config_auths.catUrl;
+                var url5 = config_auths.gperfilUrl;
+
+		return{
+			Persona: $resource(url1 +"personas/:id/", {'id': '@id'},{
+				"update": {method: 'PUT'},
+				"list": {
+					method: 'GET', 
+					isArray: false,
+					transformResponse: function(r){
+						var results = [];
+	                    var options = {};
+	                    results = angular.fromJson(r).results ? angular.fromJson(r).results: angular.fromJson(r);
+	                    options = angular.fromJson(r).options ? angular.fromJson(r).options:{"count":1,"pages":1,"page":1,"per":1,"range":"all",
+	                    "previous":null,"page_size":1,"next":null};
+
+
+	                    return { results: results, options: options };
+					}
+				},
+				"options": {
+	                method: 'OPTIONS',
+	                isArray: false,
+	                transformResponse: function(r) {
+	                    return angular.fromJson(r).actions.POST;
+	                }
+	            }
+			}),
+			EstadoCivil: $resource(url1 +"estadoCiviles/:id/", {'id': '@id'},{
+				"update": {method: 'PUT'},
+				"list": {
+					method: 'GET', 
+					isArray: false,
+					transformResponse: function(r){
+						var results = [];
+	                    var options = {};
+	                    results = angular.fromJson(r).results ? angular.fromJson(r).results: angular.fromJson(r);
+	                    options = angular.fromJson(r).options ? angular.fromJson(r).options:{"count":1,"pages":1,"page":1,"per":1,"range":"all",
+	                    "previous":null,"page_size":1,"next":null};
+
+
+	                    return { results: results, options: options };
+					}
+				},
+				"options": {
+	                method: 'OPTIONS',
+	                isArray: false,
+	                transformResponse: function(r) {
+	                    return angular.fromJson(r).actions.POST;
+	                }
+	            }
+			}),
+
+			Nacionalidad: $resource(url1 +"nacionalidades/:id/", {'id': '@id'},{
+				"update": {method: 'PUT'},
+				"list": {
+					method: 'GET', 
+					isArray: false,
+					transformResponse: function(r){
+						var results = [];
+	                    var options = {};
+	                    results = angular.fromJson(r).results ? angular.fromJson(r).results: angular.fromJson(r);
+	                    options = angular.fromJson(r).options ? angular.fromJson(r).options:{"count":1,"pages":1,"page":1,"per":1,"range":"all",
+	                    "previous":null,"page_size":1,"next":null};
+
+
+	                    return { results: results, options: options };
+					}
+				},
+				"options": {
+	                method: 'OPTIONS',
+	                isArray: false,
+	                transformResponse: function(r) {
+	                    return angular.fromJson(r).actions.POST;
+	                }
+	            }
+			}),
+
+			Item: $resource(url2 + "items/:id/", { 'id': '@id' }, {
+            "update": { method: 'PUT' },
+            "list":{
+                method: 'GET',
+                isArray: false,
+                transformResponse: function(r) {
+                    var results = [];
+                    var options = {};
+                    results = angular.fromJson(r).results ? angular.fromJson(r).results: angular.fromJson(r);
+                    options = angular.fromJson(r).options ? angular.fromJson(r).options:{"count":1,"pages":1,"page":1,"per":1,"range":"all",
+                    "previous":null,"page_size":1,"next":null};
+
+	                    return { results: results, options: options };
+	                }
+	            },
+	            "options": {
+	                method: 'OPTIONS',
+	                isArray: false,
+	                transformResponse: function(r) {
+	                    return angular.fromJson(r).actions.POST;
+	                }
+	            }
+	        }),
+
+	        Perfil: $resource(url3 + "perfiles/:id/", {'id': '@id'}, {
+	            "update": {method: 'PUT'},
+	            "list": {method: 'GET', isArray: true},
+	        }),
+	        AreaPerfil: $resource(url3 + "areaperfiles/:id/", {'id': '@id'}, {
+	            "update": {method: 'PUT'},
+	            "list": {method: 'GET', isArray: true},
+	        }),
+	        EscalaDimension: $resource(url3 + "escaladimensiones/:id/", {'id': '@id'}, {
+	            "update": {method: 'PUT'},
+	            "list": {method: 'GET', isArray: true},
+	        }),
+	        CompetenciaPerfil: $resource(url3 + "competenciaperfiles/:id/", {'id': '@id'}, {
+	            "update": {method: 'PUT'},
+	            "list": {method: 'GET', isArray: true},
+	        }),
+	        SubareaPerfil: $resource(url3 + "subareaperfiles/:id/", {'id': '@id'}, {
+	            "update": {method: 'PUT'},
+	            "list": {method: 'GET', isArray: true},
+	        }),
+	        Dimension: $resource(url3 + "dimensiones/:id/", {'id': '@id'}, {
+	            "update": {method: 'PUT'},
+	            "list": {method: 'GET', isArray: true},
+	        }),
+		};
+	});

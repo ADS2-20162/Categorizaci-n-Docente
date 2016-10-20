@@ -1,0 +1,39 @@
+ <nav>
+    <ul class="nav">
+        <div ng-repeat="tab in menu.tabs">
+            <li class="nav-header m-v-sm hidden-folded">
+                <div ng-if="tab.type === 'heading'">
+                    {{tab.title}}
+                </div>
+            </li>
+            <div ng-repeat="children in tab.children">
+                <li ng-if="children.type === 'toggle'" ng-class="{'active toggled':$state.includes('{{children.group}}')}">
+                    <a md-ink-ripple toggle-submenu>
+                        <span class="pull-right  ">
+                          <ng-md-icon icon="keyboard_arrow_down"></ng-md-icon>
+                        </span>
+                        <i class="icon mdi-action-subject i-20"></i>
+                        <ng-md-icon size="18" icon="{{children.icon}}"></ng-md-icon>
+                        <span class="font-normal">{{children.title}}</span>
+                    </a>
+                    <ul class="nav nav-sub" ng-repeat="page in children.pages">
+                        <li ui-sref-active="active">
+                            <a md-ink-ripple ui-sref="{{page.state}}" class="md-min">{{page.title}}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li ui-sref-active="active" ng-if="children.type === 'link'">
+                    <a md-ink-ripple ui-sref="{{children.state}}">
+                        <span>{{children.title}}</span>
+                    </a>
+                </li>
+            </div>
+            <li ui-sref-active="active" ng-if="tab.type === 'link'">
+                <a md-ink-ripple ui-sref="{{tab.state}}">
+                    <span>{{tab.title}}</span>
+                </a>
+            </li>
+        </div>
+
+    </ul>
+</nav>

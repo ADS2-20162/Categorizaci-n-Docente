@@ -1,0 +1,72 @@
+<div ng-cloak>
+	<md-content class="md-padding" layout-xs="column">
+		<div flex-xs flex-gt-xs>
+			<md-card ng-controller="SeccionCtrl">
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">Seccion</span>
+						<span class="md-subhead">CRUD para Seccion</span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-divider></md-divider>
+                <md-card>
+					<md-card-actions layout="row" layout-align="start center" layout-xs="column">
+						<md-card-icon-actions>
+							<md-button class="md-fab md-mini md-primary" aria-label="Add" ng-click="new($event)">
+								<md-tooltip md-autohiden>Añadir</md-tooltip>
+								<ng-md-icon icon="add" aria-label="Add"></ng-md-icon>
+							</md-button>
+						</md-card-icon-actions>
+						<span flex></span>
+                    <md-card-icon-actions layout-align="end center">
+                        <input placeholder="buscar" ng-model="query" ng-keyup="buscar()">
+                        <md-button class="md-icon-button" aria-label="Share">
+                            <ng-md-icon icon="more_vert" aria-label="title"></ng-md-icon>
+                        </md-button>
+                    </md-card-icon-actions>
+					</md-card-actions>
+					<md-divider></md-divider>
+					<md-table-container>
+                    <table md-table data-md-row-select="" mi-table>
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column class="md-padding">#</th>
+                                <th md-column md:order:by="name">Nombre</th>
+                                <th md-column md:order:by="name">Descripcion</th>
+                                <th md-column md:order:by="name">SubItem</th>
+                                <th md-column md:order:by="name">Estado</th>
+                                <th md-column>Creado</th>
+                                <th md-column>Actualizado</th>
+                                <th md-column colspan='2' align='center'>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="d in lista">
+                                <td md-cell class="md-padding">{{+$index +1 }}</td>
+                                <td md-cell> {{ d.nombre }}</td>
+                                <td md-cell> {{ d.descripcion }}</td>
+                                <td md-cell> {{ d.subitem }}</td>
+                                <td md-cell> <md-checkbox ng-model="d.estado"  class="md-primary" aria-label="checkbox" ng-change="changeEstado(d)"></md-checkbox></td>
+                                <td md-cell> {{ d.created_at | date: "yyyy-MM-dd T hh:mm" }}</td>
+                                <td md-cell> {{ d.updated_at | date: "yyyy-MM-dd T hh:mm" }}</td>
+                                <td md-cell>
+                                    <md-button class="md-icon-button md-primary" aria-label="Edit" ng-click="sel(d)">
+                                        <md-tooltip md-autohide>Editar</md-tooltip>
+                                        <ng-md-icon icon="edit" aria-label="Edit"></ng-md-icon>
+                                    </md-button>
+                                </td>
+                                <td md-cell>
+                                    <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="delete(d)">
+                                        <md-tooltip md-autohide>Eliminar</md-tooltip>
+                                        <ng-md-icon icon="delete" aria-label="delete"></ng-md-icon>
+                                    </md-button>    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                	</md-table-container>
+				</md-card>
+			</md-card>
+		</div>
+	</md-content>	
+</div>

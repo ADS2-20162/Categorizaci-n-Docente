@@ -1,0 +1,72 @@
+<div ng-controller="PersonaCtrl" ng-cloak >
+  <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex layout="column" >
+      <div md-theme-watch >
+        <div align="center">
+            <span class="md-headline">Datos Personales</span> 
+        </div>
+        <md-divider></md-divider>
+        <div class="wrapper">            
+            <div class="card radius shadowDepth1">
+                <div class="card__image border-tlr-radius" ng-repeat="e in listaPhotos">
+                    <img  ng-src="{{e.photo}}" alt="image" class="border-tlr-radius">
+                </div>
+
+                <div class="card__content card__padding">
+                    <div class="card__share" ng-repeat="e in listaPhotos">  
+                        <a  class="share-toggle share-icon" ng-click="uploadImage(e)"> 
+                            <ng-md-icon size="25"  class="icon-perfil" icon="backup" aria-label="Add"></ng-md-icon> </a>
+                    </div>
+
+                    <div class="card__meta" ng-repeat="e in listaPhotos">
+                        <a class="a-update" >ACTUALIZADO</a>
+                        <time>{{e.updated_at | date:'MM/dd/yyyy'}}</time>
+                    </div>         
+                </div>                
+            </div>
+        </div>
+        <div class="wrapper1">          
+            <div class="card1">
+                <md-card-title  ng-repeat="d in lista">
+                <md-card-title-media flex="60">
+                <div class="person-info">
+                    <div class="detail-user">
+                        <span class="md-subhead">Nombres: <h5>{{d.nombres}}{{d.ap_paterno}} {{d.ap_materno}}</h5> </span><br> 
+                    </div>
+                    <div class="detail-user">
+                        <span class="md-subhead">DNI: <h5>{{d.doc_ident}}</h5></span><br>
+                    </div>
+                    <div class="detail-user">
+                        <span class="md-subhead">Telefono/Celular: <h5>{{d.celular}}</h5> </span> <br>
+                    </div>
+                    <div class="detail-user">
+                        <span class="md-subhead">Email: <h5>{{d.email}}</h5></span>  <br>
+                    </div>
+                    <div class="detail-user">
+                        <span class="md-subhead">Dirección: <h5>{{d.direccion |limitTo:32}}{{d.direccion.length > 32 ? '...' : ''}}</h5></span> <br>
+                    </div>
+                    <div class="detail-user">                        
+                        <span class="md-subhead">Fecha de Nacimiento: <h5>{{d.fecha_nac}}</h5></span> <br>
+                    </div>
+                    <div class="detail-user">                        
+                        <span class="md-subhead">Nacionalidad: <h5>{{d.nacionalidad}}</h5></span> <br>
+                    </div>
+                    <div class="detail-user">                        
+                        <span class="md-subhead">Estado Civil: <h5>{{d.estado_civil}}</h5></span> <br>
+                    </div>
+              </div>                      
+              <md-card-actions layout="row" layout-align="end center">
+              <md-button class="md-raised md-primary" aria-label="Edit" ng-click="sel(d)">
+              <ng-md-icon size="20" icon="edit" aria-label="Add"></ng-md-icon>              Editar</md-button>
+              </md-card-actions>
+              </md-card-title-media> 
+              </md-card-title>
+            </div>
+        </div>        
+      </div>
+    </div>
+   
+    </div>
+  </md-content>
+</div>
+

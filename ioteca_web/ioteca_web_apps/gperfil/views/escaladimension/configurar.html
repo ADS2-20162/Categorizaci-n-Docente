@@ -1,0 +1,98 @@
+<div ng-cloak>
+    <md-content class="md-padding" layout-xs="column">
+        <div flex-xs flex-gt-xs>
+            <md-card ng-controller="EscalaDimensionCtrl">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Catalogo de perfiles</span>
+                        <span class="md-subhead">Configurar DimensionPerfil</span>
+                    </md-card-title-text>
+                    <md-button class="md-raised md-primary" ng-click="goBack()">
+                            <md-tooltip md-autohide>Regresar</md-tooltip>
+                            <ng-md-icon icon="arrow_back" ></ng-md-icon>
+                    Regresar</md-button>
+                </md-card-title>
+                <md-divider></md-divider>
+                <div class="md-padding">
+                    DimensionPerfil: 
+                    <span >
+                            <ng-md-icon icon="book" aria-label="title"></ng-md-icon>
+                            <strong title="Dimension del perfil {{dimperfil.perfil}}"> {{dimperfil.dimension}}</strong>
+                    </span>
+                    <md-divider></md-divider>
+                    <br>
+
+                    <div layout="row">
+                        <md-card class="page" flex="50">
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th colspan="3">Escalas disponibles</th>
+                                    <th>
+                                        <md-button align="right" class="md-fab md-mini md-primary" aria-label="Add" ng-click="new($event)">
+                                         <md-tooltip md-autohide>Añadir</md-tooltip>
+                                        <ng-md-icon icon="add" aria-label="Add"></ng-md-icon>
+                                        </md-button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="d in lista_es">
+                                    <td class="md-padding">{{ $index + 1 }}</td>
+                                    <td >{{ d.nombre }}</td>
+                                    <td >
+                                        <input required type="number" ng-model="puntaje" min="1" max="100" class="inputtexbox">
+                                        <div ng-messages="puntaje.$error"></div>
+                                    </td>
+
+                                    <td >
+                                    <md-button  class="md-icon-button" aria-label="Eat cake" ng-click="guardarEscalaD(dimperfil.id, d.nombre, puntaje)">
+                                    <ng-md-icon icon="send" ></ng-md-icon>
+                                    <md-tooltip md-autohide>Enviar</md-tooltip>
+                                    </md-button>
+                                    </td>
+                        
+                                </tr>
+                            </tbody>
+                        </table>
+                        </md-card>
+                        
+                        <md-card class="page" flex="50">
+                        <table >
+                            <thead>
+                                <tr>
+                                    <th colspan="4">Escalas del Dimension {{dimperfil.dimension}}</th>
+                                </tr>
+                            </thead>    
+                            <tbody>
+                                <tr ng-repeat="d in lista_edp">
+                                    <td width="20" class="md-padding">{{$index +1}}</td>
+                                    <!-- <td>{{d.areaperfil2}}</td> -->
+                                    <td width="300">{{d.escala}}</td>
+                                    <td width="60">
+                                    <span ng-hide="d.isEditable">{{d.puntaje}}</span>
+                                    <input required type="number" ng-model="d.puntaje" class="inputtexbox" ng-show="d.isEditable" ng-keydown="editPtj($event, d, d.puntaje)" id="MyText{{d.id}}" ng-blur="ocultarInput(d)"  min="1" max="100"> 
+                                    <div ng-messages="d.puntaje.$error"></div>
+                                    </td>
+                                    <td width="50">
+                                        <a class="md-icon-button" ng-click="showInput(d,'MyText'+d.id)">
+                                            <md-tooltip md-autohide>Editar </md-tooltip>
+                                            <ng-md-icon size="20" icon="edit" aria-label="Edit" ></ng-md-icon>
+                                        </a>  
+                                    </td>
+                                    <td width="50">
+                                        <a class="md-icon-button" aria-label="delete" ng-click="delete(d)">
+                                            <md-tooltip md-autohide>Quitar</md-tooltip>
+                                            <ng-md-icon size="20" icon="clear" aria-label="delete" ></ng-md-icon>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </md-card>
+                    </div>
+                </div>   
+            </md-card>
+        </div>
+    </md-content>
+</div>

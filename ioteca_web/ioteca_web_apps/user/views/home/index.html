@@ -1,0 +1,27 @@
+<div ng-controller="PersonaCtrl" ng-cloak align="center">
+  <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex layout="column">
+      <md-card md-theme-watch align="center">
+        <div align="center">
+            <span class="md-headline">Anuncios</span> 
+        </div>
+        <md-divider></md-divider>
+        </br>
+        <div align="center" ng-repeat="d in lista">
+            <span class="md-subhead">A paragraph of text with an unassigned</span>
+            </br>
+            <div>
+            <ng-md-icon icon="chrome_reader_mode" aria-label="Add"></ng-md-icon>
+            </div>
+            </br>
+            <md-card-icon-actions layout-align="end center">
+                <md-button class="md-primary md-hue-1" aria-label="wiew" ">Ver
+                </md-button>
+            </md-card-icon-actions> 
+        </div>
+      </md-card>
+    </div>
+   
+    </div>
+  </md-content>
+</div>

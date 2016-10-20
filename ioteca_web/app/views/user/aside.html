@@ -1,0 +1,58 @@
+<div class="box bg-upeu" md-theme="{{ dynamicTheme }}">
+    <div class="navbar md-whiteframe-z1 no-radius ">
+        <md-toolbar class="navbar-brand md-hue-2">
+            
+         <div class="md-toolbar-tools">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve" style="
+              width: 24px; height: 24px;">
+                <path d="M 92 80 L 50 0 L 50 100 Z" fill="rgba(139, 195, 74, 0.8)"></path>
+                <path d="M 8 80 L 50 0 L 50 100 Z" fill="#f3f3f3"></path>
+            </svg>
+              <span class="hidden-folded m-l inline" ng-bind="app.name"></span>
+          </div>
+        </md-toolbar>
+    </div>
+<md-toolbar class="navbar-brand" ng-controller="PersonaCtrl">
+
+    <div class="navbar" style="width: 240px; height: 180px;" layout="column" layout-align="center center">
+      <div class="md-img" ng-repeat="e in listaPhotos"> 
+        <IMG class="md-img"  ng-src="{{e.photo}}"></IMG> 
+      </div>
+      <div layout="column" align="center" ng-repeat="d in listaU">
+          <span>{{d.person.first_name}} {{d.person.other_names}}</span>
+          <span>{{d.person.last_name}} {{d.person.mother_last_name}}</span>
+
+      </div>
+    </div>
+</md-toolbar>  
+
+    <div class="box-row" style="background-color:powderblue;">
+        <div class="box-cell scrollable hover">
+            <div class="box-inner ">
+                <div id="nav" ng-include="'app/views/partials/aside.nav.uikit.user.html'"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div ng-controller="ThemeCtrl as demo">
+      <md-fab-speed-dial md-open="demo.isOpen" md-direction="{{demo.selectedDirection}}" ng-class="demo.selectedMode" ng-hide="demo.hidden" ng-mouseenter="demo.isOpen=true" ng-mouseleave="demo.isOpen=false" >
+        <md-fab-trigger>
+          <md-button aria-label="menu" class="md-fab md-primary">
+            <ng-md-icon size="25" icon="invert_colors"></ng-md-icon>
+          </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+          <md-button class="md-fab md-raised md-mini" style="background:purple" ng-click="setTheme('altTheme')" aria-label="btn">
+            <md-icon ></md-icon>
+          </md-button>
+          <md-button class="md-fab md-raised md-mini" style="background:green" ng-click="setTheme('other')" aria-label="btn">
+            <md-icon ></md-icon>
+          </md-button>
+          <md-button class="md-fab md-raised md-mini" style="background:red" ng-click="setTheme('new')" aria-label="btn">
+            <md-icon ></md-icon>
+          </md-button>
+        </md-fab-actions>
+      </md-fab-speed-dial>
+    </div>
+</div>

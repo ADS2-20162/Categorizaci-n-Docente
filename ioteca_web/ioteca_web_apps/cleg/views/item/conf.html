@@ -1,0 +1,208 @@
+<div ng-cloak>
+    <md-content class="md-padding" layout-xs="column">
+        <div flex-xs flex-gt-xs>
+            <md-card ng-controller="ItemCtrl">
+                <md-divider></md-divider>
+                <md-card-actions layout="row" align="center" layout-xs="column">
+                    <md-card-icon-actions>
+                        <md-button class="md-raised" aria-label="Add" ng-click="new($event)">
+                            <md-tooltip >Añadir Item</md-tooltip>
+                            <ng-md-icon icon="add" size="20" aria-label="Add"></ng-md-icon> añadir Item
+                        </md-button>
+                        <md-button class="md-raised" ng-click="addSubItem($event)" >
+                            <md-tooltip md-autohide>Añadir SubItem</md-tooltip>
+                            <ng-md-icon icon="add" size="20"  ></ng-md-icon>Añadir Sub Item
+                        </md-button>
+                        <md-button class="md-raised" ng-click="addSection($event)" >
+                            <md-tooltip md-autohide>Añadir Seccion</md-tooltip>
+                            <ng-md-icon icon="add" size="20" aria-label="btn" ></ng-md-icon>añadir Seccion
+                        </md-button>
+                    </md-card-icon-actions>
+                    <span flex></span>
+                </md-card-actions>
+                <md-divider></md-divider>
+                
+                <div layout="row" > <!-- layout="row"  -->
+                <div flex="50" class="page" layout="column">
+                    <md-card ng-repeat="d in lista" ng-if="$even">
+                        <md-card-actions>
+                            <table>
+                                <tbody>
+                                    <tr ng-mouseover="d.isHover=true" ng-mouseleave="d.isHover=false">
+                                        <td align="Left" width="10">
+                                            <md-button class="md-rog md-mini-mini" aria-label="Add">
+                                                {{$index+1}}
+                                            </md-button>
+                                        </td>
+                                        <td align="Left" colspan="5" ng-init="d.isEditable = false">
+                                            <a href="" ng-hide="d.isEditable">{{d.nombre}}</a> 
+                                            
+                                            <input required type="text" ng-model="d.nombre" class="inputtexbox"  ng-show="d.isEditable" ng-keydown="editItem($event, d)" id="MyText{{d.id}}" ng-blur="ocultarInput(d)"> 
+
+                                            <md-button class="md-icon-button" ng-click="showInput(d,'MyText'+d.id)" ng-show="d.isHover">
+                                            <md-tooltip md-autohide>Editar Item</md-tooltip>
+                                            <ng-md-icon size=18px icon="edit" aria-label="edit"></ng-md-icon>
+                                            </md-button>
+                                        </td>
+                                        <!-- <td ></td> -->
+                                        <td width="100"> 
+                                            <span ng-show="d.isHover">
+                                            <md-button class="md-icon-button" aria-label="delete" ng-click="delItem(d)">
+                                                <md-tooltip md-autohide>Eliminar Item</md-tooltip>
+                                                <ng-md-icon size=20px icon="delete" aria-label="delete" ></ng-md-icon>
+                                            </md-button>
+                                            <md-checkbox ng-model="d.estado" aria-label="Checkbox 1" ng-change="changeEstado(d)" class="md-primary">
+                                            </md-checkbox>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tbody ng-repeat="subitem in d.subitems" ng-show="d.estado">
+                                    <tr  ng-mouseover="subitem.isHover=true" ng-mouseleave="subitem.isHover=false">
+                                        <td></td>
+                                        <td align="left" width="10"><ng-md-icon size=20px icon="arrow_forward" style="fill:#2288cc"></ng-md-icon></td>
+                                        <td colspan="3">
+                                            <a href="" class="md-hover" ng-hide="subitem.isEditable">{{ subitem.nombre }}</a>
+                                            <input required type="text" ng-model="subitem.nombre" class="inputtexbox"  ng-show="subitem.isEditable" ng-keydown="editSubitem($event, subitem)" id="MyText{{subitem.id}}" ng-blur="ocultarInput(subitem)">    
+                                            <md-tooltip md-autohide ng-if="subitem.isEditable">Presione Enter para guardar.</md-tooltip>
+                                            <md-button class="md-icon-button " ng-click="showInput(subitem,'MyText'+subitem.id)" ng-show="subitem.isHover">
+                                            <md-tooltip md-autohide>Editar Sub Item</md-tooltip>
+                                            <ng-md-icon size=20px icon="edit" aria-label="edit"></ng-md-icon>
+                                            </md-button>
+                                        </td>
+                                        <td></td>
+                                        <td align="right">
+                                            <span ng-show="subitem.isHover" >
+                                            <md-button class="md-icon-button " aria-label="delete" ng-click="delSubItem(subitem)">
+                                                <md-tooltip md-autohide>Eliminar SubItem</md-tooltip>
+                                                <ng-md-icon size=20px icon="delete" aria-label="delete" ></ng-md-icon>
+                                            </md-button>
+                                            <md-checkbox ng-model="subitem.estado" aria-label="Checkbox 1" class="dotted" ng-change="changeEstadoI(subitem)">
+                                            </md-checkbox>
+                                            </span>
+                                        </td>
+                                       
+                                        <tr ng-repeat="i in subitem.secciones" ng-show="subitem.estado" ng-mouseover="i.isHover=true" ng-mouseleave="i.isHover=false"> 
+                                            <td></td>
+                                            <td></td>
+                                            <td colspan="3">
+                                            <ng-md-icon size=20px icon="keyboard_arrow_right" style="fill:red"></ng-md-icon>
+                                            <a href="" class="md-hover" ng-hide="i.isEditable">{{ i.nombre}}</a>
+                                            <input required type="text" ng-model="i.nombre" class="inputtexbox"  ng-show="i.isEditable" ng-keydown="editSeccion($event, i)" id="MyText{{i.id}}" ng-blur="ocultarInput(i)">    
+                                            <md-tooltip md-autohide ng-if="i.isEditable">Presione Enter para guardar.</md-tooltip>
+
+                                            <md-button class="md-icon-button " ng-click="showInput(i,'MyText'+i.id)" ng-show="i.isHover">
+                                            <md-tooltip md-autohide>Editar Seccion</md-tooltip>
+                                            <ng-md-icon size=20px icon="edit" aria-label="edit"></ng-md-icon>
+                                            </md-button>
+                                            </td>
+                                            <td></td>
+                                            <td align="right">
+                                                <span ng-show="i.isHover">
+                                                <md-button class="md-icon-button " aria-label="delete" ng-click="delSection(i)">
+                                                    <md-tooltip md-autohide>Eliminar Seccion</md-tooltip>
+                                                    <ng-md-icon size=20px icon="delete" aria-label="delete" ></ng-md-icon>
+                                                </md-button>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tr>
+                                    </tbody>
+                                </tbody>
+                            </table>
+                        </md-card-actions>
+                  </md-card>
+                </div>
+
+                <div flex="50"  class="page"  layout="column">
+                    <md-card ng-repeat="d in lista" ng-if="$odd">
+                        <md-card-actions>
+                            <table>
+                                <tbody>
+                                    <tr ng-mouseover="d.isHover=true" ng-mouseleave="d.isHover=false">
+                                        <td align="Left" width="10">
+                                            <md-button class="md-rog md-mini-mini" aria-label="Add">
+                                                {{$index+1}}
+                                            </md-button>
+                                        </td>
+                                        <td align="Left" colspan="4" ng-init="d.isEditable = false">
+                                            <a href="" ng-hide="d.isEditable">{{d.nombre}}</a> 
+                                            <input required type="text" ng-model="d.nombre" class="inputtexbox"  ng-show="d.isEditable" ng-keydown="editItem($event, d)" id="MyText{{d.id}}" ng-blur="ocultarInput(d)">    
+                                            <md-tooltip md-autohide ng-if="d.isEditable">Presione Enter para guardar.</md-tooltip>
+                                            <md-button class="md-icon-button" ng-click="showInput(d,'MyText'+d.id)" ng-show="d.isHover">
+                                            <md-tooltip md-autohide>Editar Item</md-tooltip>
+                                            <ng-md-icon size=20px icon="edit" aria-label="edit"></ng-md-icon>
+                                            </md-button>
+                                        </td>
+                                        <td ></td>
+                                        <td align="right" width="100"> 
+                                            <span ng-show="d.isHover">
+                                            <md-button class="md-icon-button" aria-label="delete" ng-click="delItem(d)">
+                                                <md-tooltip md-autohide>Eliminar Item</md-tooltip>
+                                                <ng-md-icon size=20px icon="delete" aria-label="delete" ></ng-md-icon>
+                                            </md-button>
+                                            <md-checkbox ng-model="d.estado" aria-label="Checkbox 1" ng-change="changeEstado(d)" class="md-primary">
+                                            </md-checkbox>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tbody ng-repeat="subitem in d.subitems" ng-show="d.estado">
+                                    <tr  ng-mouseover="subitem.isHover=true" ng-mouseleave="subitem.isHover=false">
+                                        <td></td>
+                                        <td align="left" width="10"><ng-md-icon size=20px icon="arrow_forward" style="fill:#2288cc"></ng-md-icon></td>
+                                        <td colspan="3">
+                                            <a href="" class="md-hover" ng-hide="subitem.isEditable">{{ subitem.nombre }}</a>
+                                            <input required type="text" ng-model="subitem.nombre" class="inputtexbox"  ng-show="subitem.isEditable" ng-keydown="editSubitem($event, subitem)" id="MyText{{subitem.id}}" ng-blur="ocultarInput(subitem)">    
+                                            <md-tooltip md-autohide ng-if="subitem.isEditable">Presione Enter para guardar.</md-tooltip>
+                                            <md-button class="md-icon-button " ng-click="showInput(subitem,'MyText'+subitem.id)" ng-show="subitem.isHover">
+                                            <md-tooltip md-autohide>Editar Sub Item</md-tooltip>
+                                            <ng-md-icon size=20px icon="edit" aria-label="edit"></ng-md-icon>
+                                            </md-button>
+                                        </td>
+                                        <td></td>
+                                        <td align="right">
+                                            <span ng-show="subitem.isHover" >
+                                            <md-button class="md-icon-button " aria-label="delete" ng-click="delSubItem(subitem)">
+                                                <md-tooltip md-autohide>Eliminar SubItem</md-tooltip>
+                                                <ng-md-icon size=20px icon="delete" aria-label="delete" ></ng-md-icon>
+                                            </md-button>
+                                            <md-checkbox ng-model="subitem.estado" aria-label="Checkbox 1" class="dotted" ng-change="changeEstadoI(subitem)">
+                                            </md-checkbox>
+                                            </span>
+                                        </td>
+                                       
+                                        <tr ng-repeat="i in subitem.secciones" ng-show="subitem.estado" ng-mouseover="i.isHover=true" ng-mouseleave="i.isHover=false"> 
+                                            <td></td>
+                                            <td></td>
+                                            <td colspan="3">
+                                            <ng-md-icon size=20px icon="keyboard_arrow_right" style="fill:red"></ng-md-icon>
+                                            <a href="" class="md-hover" ng-hide="i.isEditable">{{ i.nombre}}</a>
+                                            <input required type="text" ng-model="i.nombre" class="inputtexbox"  ng-show="i.isEditable" ng-keydown="editSeccion($event, i)" id="MyText{{i.id}}" ng-blur="ocultarInput(i)">    
+                                            <md-tooltip md-autohide ng-if="i.isEditable">Presione Enter para guardar.</md-tooltip>
+
+                                            <md-button class="md-icon-button " ng-click="showInput(i,'MyText'+i.id)" ng-show="i.isHover">
+                                            <md-tooltip md-autohide>Editar Seccion</md-tooltip>
+                                            <ng-md-icon size=20px icon="edit" aria-label="edit"></ng-md-icon>
+                                            </md-button>
+                                            </td>
+                                            <td></td>
+                                            <td align="right">
+                                                <span ng-show="i.isHover">
+                                                <md-button class="md-icon-button " aria-label="delete" ng-click="delSection(i)">
+                                                    <md-tooltip md-autohide>Eliminar Seccion</md-tooltip>
+                                                    <ng-md-icon size=20px icon="delete" aria-label="delete" ></ng-md-icon>
+                                                </md-button>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tr>
+                                    </tbody>
+                                </tbody>
+                            </table>
+                        </md-card-actions>
+                  </md-card>
+                </div>
+              </div>
+            </md-card>
+        </div>
+    </md-content>
+</div>

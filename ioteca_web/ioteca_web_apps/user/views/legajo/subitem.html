@@ -1,0 +1,52 @@
+<md-dialog aria-label="Form" ng-cloak class="main" md-theme="{{ dynamicTheme }}">
+    <form name='myform'>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    {{subitem}}
+                </h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <ng-md-icon icon="close" aria-label="Close dialog"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-progress-circular layout-fill md-mode="indeterminate" ng-hide="true"></md-progress-circular>
+            <div class="md-dialog-content">
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Elemento Campo</label>
+                        <md-select ng-model="registro.elemento_campo" style="min-width: 200px;" required>
+                        <md-option ng-repeat="n in listaEC | filter: subitem" ng-value="n.id">{{n.nombre}}</md-option>
+                        </md-select>        
+                    </md-input-container>
+                    <div flex="5" hide-xs hide-sm>
+                    </div>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Persona</label>
+                        <md-select  ng-model="registro.persona" style="min-width: 200px;" required>
+                            <md-option ng-repeat="m in listaP"  value="{{m.nombres}}">{{m.nombres}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Data</label>
+                        <input ng-model="registro.data" required minlength="10" maxlength="100" />                        
+                    </md-input-container>
+                    <style>
+                        body[dir=rtl] .hint {
+                            right: 2px;
+                            left: auto;
+                        }
+                    </style>
+                </div>
+        </md-dialog-content> 
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="reset" ng-click="cancel()" class="md-raised">Cancelar</md-button>
+            <md-button type="submit" ng-click="saveRegistro(registro.elemento_campo,registro.persona,registro.data)" class="md-raised md-primary" ng-disabled="!myform.$valid">Guardar</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog> 

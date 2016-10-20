@@ -1,0 +1,85 @@
+<div ng-cloak>
+    <md-content class="md-padding" layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="25" layout="column" ng-controller="CampoCtrl">
+      <md-card>
+        <md-card-title md-scroll-shrink ng-if="true">
+          <md-card-title-text>
+            <span class="md-headline">Añadir Campo</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content layout="column" layout-align="start">
+         <div class="sortable-row" as-sortable="sortableCloneOptions" data-ng-model="lista">
+                <div ng-repeat="item in lista" as-sortable-item>
+                    <md-button class="md-button md-primary md-hue-1" aria-label="edit" as-sortable-item-handle>
+                        <md-tooltip md-autohide>{{item.tipo_campo}}</md-tooltip>
+                        <ng-md-icon icon="note" aria-label="edit"></ng-md-icon>
+                        <span class="md-caption">{{ item.nombre }}</span>
+                    </md-button> 
+                </div>
+                </div> 
+        </md-card-content>
+      </md-card>
+    </div>
+    <div flex-xs flex-gt-xs="50" layout="column" ng-controller="CampoCtrl">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Formulario</span>
+        </md-card-title-text>
+            <md-button class="md-fab md-mini md-primary" aria-label="Add">
+				<md-tooltip md-autohiden>Añadir</md-tooltip>
+				<ng-md-icon icon="add" aria-label="Add"></ng-md-icon>
+			</md-button> 
+        </md-card-title>
+        <md-card-content layout="row" layout-align="start">
+                <div class="sortable-row" as-sortable="sortableOptions" data-ng-model="campo">
+                <div ng-repeat="item in campo" as-sortable-item>
+                    <md-button class="md-button md-primary md-hue-1" aria-label="edit" as-sortable-item-handle>
+                        <md-tooltip md-autohide>{{item.tipo_campo}}</md-tooltip>
+                        <ng-md-icon icon="note" aria-label="edit"></ng-md-icon>
+                        <span class="md-caption">{{ item.nombre }}</span>
+                    </md-button> 
+                    <a ng-click="deleteItem($index)">x</a>
+                </div>
+                </div> 
+        </md-card-content>
+        {{ campo }}
+      </md-card>
+      <div layout layout-padding layout-align="center end" style="height:200px">
+        <md-checkbox ng-model="showDarkTheme">Use 'Dark' Themed Cards</md-checkbox>
+    </div>
+  </div>
+
+ <div flex-xs flex-gt-xs="25" layout="column" ng-controller="CampoPropiedadFormCtrl">
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Propiedades de </span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="start">
+            propiedades
+        </md-card-actions>
+      </md-card>
+    </div> 
+  </md-content>
+</div>
+
+ <div  ng-controller="CampoCtrl">
+                <div class="sortable-row" as-sortable="sortableCloneOptions"data-ng-model="lista">
+                    <div ng-repeat="item in lista" as-sortable-item>
+                        <div as-sortable-item-handle>{{item.nombre}}</div>
+                    </div>
+                </div>
+        <h2>form</h2>
+                <div class="sortable-row" as-sortable="sortableOptions" data-ng-model="campo">
+                <div ng-repeat="item in campo" as-sortable-item>
+                    <md-button class="md-button md-primary md-hue-1" aria-label="edit" as-sortable-item-handle>
+                        <md-tooltip md-autohide>{{item.tipo_campo}}</md-tooltip>
+                        <ng-md-icon icon="note" aria-label="edit"></ng-md-icon>
+                        <span class="md-caption">{{ item.nombre }}</span>
+                    </md-button> 
+                </div>
+                </div>
+    {{ campo }}
+</div>

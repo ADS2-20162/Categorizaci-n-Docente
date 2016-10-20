@@ -1,0 +1,73 @@
+<div ng-cloak ng-controller="CatalogoCtrl">
+<md-card>
+<div align="center" >
+     <md-card-title>
+        <md-card-title-text>
+            <span class="md-subhead">Perfil Profesional - Catalogo</span>
+        </md-card-title-text>
+    </md-card-title>
+    <div layout="row" layout-align="center center">
+        <label>Seleccione :</label>
+         <md-select placeholder="Seleccione un Perfil" ng-model="perfil" style="min-width: 200px;">
+          <md-option ng-repeat="d in lista" value="{{d.id}}" ng-click="loadAreas(d.id)">{{d.nombre}}
+          </md-option>
+        </md-select>
+    </div>
+</div>
+
+<md-divider></md-divider>
+<md-content>
+    <md-tabs md-dynamic-height md-border-bottom >
+      <md-tab  ng-repeat="e in listaA" label="{{e.area}}" ng-click="loadSubarea(e.id)">
+      <md-content class="md-padding">
+        <div id="legajo">
+            <md-table-container>
+                <table md-table data-md-row-select="" mi-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column class="md-padding" width="10">N°</th>
+                            <th md-column width="150">Sub Area</th>
+                            <th md-column width="300">Competencias</th>
+                            <th md-column ng-repeat="l in listaDim" >
+                                <span>{{l.nombre}}</span>
+                                <md-divider></md-divider>
+                                <span layout="row" layout-align="space-around center">
+                                    <span ng-repeat="li in listaD">
+                                        {{li.escala}}
+                                    </span>
+                                </span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="j in listaC">
+                            <td class="md-padding" md-cell>{{ $index +1 }}</td>
+                            <td md-cell> {{j.subarea_nombre}}</td>
+                            <td md-cell>{{j.competencia}}</td>
+                            <td md-cell align="center" >
+                            <span layout="row" layout-align="space-around center">
+                                <span ng-repeat="li in listaD" layout="row">
+                                  <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1" ng-change="changeEstado(li.escala, j.competencia)">
+                                  </md-checkbox>
+                                     <choose-file class="md-block">
+                                        <input id="fileInput" type="file" class="ng-hide" uploader-model="file">
+                                            <md-button id="uploadButton" class="md-icon-button md-primary">
+                                                <ng-md-icon size ="25" icon="unarchive" aria-label="attach_file"></ng-md-icon>
+                                                <md-tooltip md-autohide>Adjuntar</md-tooltip>
+                                            </md-button>
+                                    </choose-file>
+                                </span>
+                            </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+          </div>
+        </md-content>
+      </md-tab>
+    </md-tabs>
+  </md-content>
+  </md-card>
+</div>
+

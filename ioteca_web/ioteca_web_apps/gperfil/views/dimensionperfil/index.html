@@ -1,0 +1,80 @@
+<div ng-cloak>
+    <md-content class="md-padding" layout-xs="column">
+        <div flex-xs flex-gt-xs>
+            <md-card ng-controller="DimensionperfilCtrl">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Escala</span>
+                        <!-- <span class="md-subhead">CRUD areasubarea</span> -->
+                    </md-card-title-text>
+                </md-card-title>
+                <md-divider></md-divider>
+
+
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Catalogo de perfiles</span>
+                        <span class="md-subhead">Configurar Perfil</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <md-divider></md-divider>
+
+
+                <md-divider></md-divider>
+                <md-card class="page" flex>
+                    <table md-table data-md-row-select="" mi-table>
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>#</th>
+                                <th md-column md:order:by="name">Perfil</th>
+                                <th md-column>Dimension</th>
+                                <th md-column>Creado</th>
+                                <th md-column>Actualizado</th>
+                                <th md-column colspan='2' align='center'>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="d in lista">
+                                <td md-cell>{{$index +1 }}</td>
+                                <td md-cell> {{ d.perfil }}</td>
+                                <td md-cell> {{ d.dimension }}</td>
+                                <td md-cell> {{ d.created_at | date: "dd-MM-yyyy T hh:mm"}}</td>
+                                <td md-cell> {{ d.updated_at | date: "dd-MM-yyyy T hh:mm"}}</td>
+                                
+                                <td md-cell>
+                                    <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="eliminarDPerfil(d)">
+                                        <md-tooltip md-autohide>Eliminar</md-tooltip>
+                                        <ng-md-icon icon="delete" aria-label="delete"></ng-md-icon>
+                                    </md-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-card>
+                <md-table-pagination>
+                    <table>
+                        <tfoot>
+                            <tr>
+                                <td colspan="10">
+                                    <mi-pagination page="options.page" pages="options.pages" next="options.next" previous="options.previous" rango="options.range" activado="myactive" accion="list(params)" query="query">
+                                    </mi-pagination>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </md-table-pagination>
+
+
+            <app-pagination ng-if="options.pages>0" per="per"
+                            page="options.page"
+                            format="'jumping'"
+                            display="4"
+                            rango="options.range"
+                            accion="list(params)"
+                            pages="options.pages"  query="query"
+            ></app-pagination>
+           
+            </md-card>
+        </div>
+    </md-content>
+</div>
