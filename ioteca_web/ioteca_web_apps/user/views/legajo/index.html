@@ -31,44 +31,48 @@
                                 {{subitem.nombre}}
                                 <span class="pull-right">
                                     <md-tooltip md-autohiden>Añadir</md-tooltip>
-                                    <ng-md-icon icon="note_add" style="fill:#0091ea" ng-click="subitemnew($event,subitem)" ></ng-md-icon>
+                                    <ng-md-icon icon="note_add" id="newsub" style="fill:#0091ea" ng-click="subitemnew($event,subitem)" ></ng-md-icon>
                                     <ng-md-icon icon="keyboard_arrow_down" style="fill:#0091ea"></ng-md-icon>
                                 </span>
                             </a>
                             <ul class="nav nav-sub">
-                                <div id="legajo">
+                                <div id="legajo">                             
                                     <md-table-container>
-                                        <table md-table data-md-row-select="" mi-table>
+                                        <table class="table-material" md-table data-md-row-select="" mi-table>
                                             <thead md-head>
-                                                <tr md-row>
-                                                    <!-- <th md-column class="md-padding">#</th> -->
-                                                    <th md-column md:order:by="name">Código</th>
-                                                    <th md-column md:order:by="name">Centro de Estudios</th>
-                                                    <th md-column md:order:by="name">Grado Obtenido</th>
-                                                    <th md-column md:order:by="name">Fecha Inicio</th>
-                                                    <th md-column md:order:by="name">Fecha Fin</th>
-                                                    <th md-column md:order:by="name">Puntos</th>
-                                                    <!-- <th md-column>Creado</th> -->
-                                                    <!-- <th md-column>Actualizado</th> -->
+                                                <tr md-row ng-repeat="e in listaE | filter:subitem.nombre">
+                                                    <th md-column align="center" class="md-padding">Código</th>
+                                                    <th md-column md align='center' ng-repeat="i in listaEC | filter:subitem.nombre | limitTo: limit" ng-if="e.nombre == i.elemento.nombre">{{i.nombre}}</th>
+                                                    <th md-column md align='center' ng-repeat="j in listaECP | filter:subitem.nombre | limitTo: limite">{{j.campo_predefinido.nombre}}</th>
                                                     <th md-column colspan='2' align='center'>Opciones</th>
                                                 </tr>
                                             </thead>
-                                            <tbody md-body>
-                                                <!-- ng-repeat="d in lista" -->
-                                                <tr md-row ng-repeat="i in listaECR | filter:subitem.nombre">
-                                                    <!-- <td md-cell class="md-padding"></td> -->
-                                                    <td md-cell>{{i.id}} </td>
-                                                    <td md-cell>{{i.elemento_campo.nombre}}</td>
-                                                    <td md-cell>{{i.persona}}</td>
-                                                    <td md-cell> </td>
-                                                    <td md-cell>{{i.data}}</td>
-                                                    <td md-cell> 25 Puntos </td>
+                                            <tbody md-body ng-repeat="e in listaE | filter:subitem.nombre" ng-if="listaECR.length != 0">
+                                                <tr md-row ng-repeat="listaECR in subitemRegistro | filter: subitem.nombre">
+                                                    <td md-cell align="center" class="md-padding">{{$index+1}}</td>
+                                                    <td md-cell align='center' ng-repeat="d in listaECR | limitTo: limit" ng-if="e.nombre == d.elemento_campo.elemento.nombre"> 
+                                                        <label ng-if="d.d_string != null">{{d.d_string}}</label>
+                                                        <label ng-if="d.d_texto != null">{{d.d_texto}}</label>
+                                                        <label ng-if="d.d_number != null">{{d.d_number}}</label>
+                                                        <label ng-if="d.d_decimal != null">{{d.d_decimal}}</label>
+                                                        <label ng-if="d.d_fecha != null">{{d.d_fecha}}</label>
+                                                        <label ng-if="d.d_imagen != null">{{d.d_imagen}}</label>
+                                                        <label ng-if="d.d_archivo != null">{{d.d_archivo}}</label>
+                                                        <label ng-if="d.d_url != null">{{d.d_url}}</label>
+                                                    </td>
+                                                    <td md-cell align='center' ng-repeat="d in listaECPR | limitTo: limite" ng-if="e.nombre == d.elemento_campo_pred.elemento.nombre"> 
+                                                        {{d.data}}
+                                                    </td>
                                                     <td md-cell align='center'>
-                                                        <md-button class="md-icon-button md-primary" aria-label="Edit" ng-click="reg(i,subitem)">
+                                                        <md-button class="md-icon-button md-primary" aria-label="Edit" ng-click="reg(listaECR,subitem )">
                                                             <md-tooltip md-autohide>Editar</md-tooltip>
                                                             <ng-md-icon icon="edit" aria-label="Edit"></ng-md-icon>
                                                         </md-button>
-                                                        <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="delReg(i)">
+                                                        <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="Reg(listaECR)">
+                                                            <md-tooltip md-autohide>Detalle</md-tooltip>
+                                                            <ng-md-icon icon="receipt" aria-label="detalle"></ng-md-icon>
+                                                        </md-button>    
+                                                        <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="delReg(listaECR)">
                                                             <md-tooltip md-autohide>Eliminar</md-tooltip>
                                                             <ng-md-icon icon="delete" aria-label="delete"></ng-md-icon>
                                                         </md-button>    
@@ -76,7 +80,7 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </md-table-container> 
+                                    </md-table-container>  
                                 </div>
                             </ul>
                         </li>
@@ -102,6 +106,46 @@
     </ul>
 </nav>
 </md-card>
+        <!-- <md-table-container> -->
+                                    <!--     <table md-table data-md-row-select="" mi-table> -->
+                                    <!--         <thead md-head> -->
+                                    <!--             <tr md-row> -->
+                                    <!--                 <1!-- <th md-column class="md-padding">#</th> --1> -->
+                                    <!--                 <th md-column md>Código</th> -->
+                                    <!--                 <th md-column md>Centro de Estudios</th> -->
+                                    <!--                 <th md-column md>Grado Obtenido</th> -->
+                                    <!--                 <th md-column md>Fecha Inicio</th> -->
+                                    <!--                 <th md-column md>Fecha Fin</th> -->
+                                    <!--                 <th md-column md>Puntos</th> -->
+                                    <!--                 <1!-- <th md-column>Creado</th> --1> -->
+                                    <!--                 <1!-- <th md-column>Actualizado</th> --1> -->
+                                    <!--                 <th md-column colspan='2' align='center'>Opciones</th> -->
+                                    <!--             </tr> -->
+                                    <!--         </thead> -->
+                                    <!--         <tbody md-body> -->
+                                    <!--             <1!-- ng-repeat="d in lista" --1> -->
+                                    <!--             <tr md-row ng-repeat="i in listaECR | filter:subitem.nombre"> -->
+                                    <!--                 <1!-- <td md-cell class="md-padding"></td> --1> -->
+                                    <!--                 <td md-cell>{{i.id}} </td> -->
+                                    <!--                 <td md-cell>{{i.elemento_campo.nombre}}</td> -->
+                                    <!--                 <td md-cell>{{i.persona}}</td> -->
+                                    <!--                 <td md-cell> </td> -->
+                                    <!--                 <td md-cell>{{i.data}}</td> -->
+                                    <!--                 <td md-cell> 25 Puntos </td> -->
+                                    <!--                 <td md-cell align='center'> -->
+                                    <!--                     <md-button class="md-icon-button md-primary" aria-label="Edit" ng-click="reg(i,subitem)"> -->
+                                    <!--                         <md-tooltip md-autohide>Editar</md-tooltip> -->
+                                    <!--                         <ng-md-icon icon="edit" aria-label="Edit"></ng-md-icon> -->
+                                    <!--                     </md-button> -->
+                                    <!--                     <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="delReg(i)"> -->
+                                    <!--                         <md-tooltip md-autohide>Eliminar</md-tooltip> -->
+                                    <!--                         <ng-md-icon icon="delete" aria-label="delete"></ng-md-icon> -->
+                                    <!--                     </md-button> -->    
+                                    <!--                 </td> -->
+                                    <!--             </tr> -->
+                                    <!--         </tbody> -->
+                                    <!--     </table> -->
+                                    <!-- </md-table-container> -->  
 <!--  <md-card>
             <table>
                 <thead >

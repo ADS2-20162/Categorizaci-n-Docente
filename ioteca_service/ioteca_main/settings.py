@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'ioteca_service_apps.rleg',
     'ioteca_service_apps.cgen',
     'ioteca_service_apps.gdata',
+    'django_extensions',
 
 ]
 

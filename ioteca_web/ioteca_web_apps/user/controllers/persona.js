@@ -1,6 +1,6 @@
 app
 
-	.controller("PersonaCtrl", function($scope, ApiUser, $window, $stateParams, $mdDialog, toastr, $parse, $http,$filter,Upload,$timeout){
+	.controller("PersonaCtrl", function($scope, ApiUser, $window, $stateParams, $mdDialog, toastr, $parse, $http,$rootScope,$location){
 		var params = {};
 		var url = 'ioteca_web_apps/user/views';
 		$scope.lista = [];
@@ -8,7 +8,6 @@ app
         $scope.listaU = []; //Lista de Usuarios
         $scope.listaPhotos = []; //Lista de Fotos de Usuarios
 		$scope.persona = {};
-
 		function list(params){
             ApiUser.Persona.list(params).$promise.then(function(r){
                 $scope.lista = r.results;
@@ -17,7 +16,6 @@ app
             });
 		}
 		list(params);
-
 		function listarEst(){
 			ApiUser.EstadoCivil.list().$promise.then(function(r){
 				$scope.listaE = r.results;
@@ -59,7 +57,6 @@ app
 	        list(params);
             listarPhotoUsers();
 	    };
-		
 		// end mdDialog
 	    $scope.sel = function(d) {
 	        $scope.persona = d;
@@ -88,9 +85,8 @@ app
 	            parent: angular.element(document.body),
 	            clickOutsideToClose: false,
 	            preserveScope: true,
-	        }).then(function() {
+	        }).then(function() { 
                 listarPhotoUsers();
-                listarUsuarios();
 	        }, function() {});
 	    }; 
 
@@ -112,9 +108,10 @@ app
 	    };
         
         $scope.saveupload = function(photo,user) {
-	        if ($scope.form.id) {              
+	        if ($scope.form.id) {
 	            ApiUser.PhotoUser.update({ id: $scope.form.id }, $scope.form).$promise.then(function(r) {
 	                toastr.success('Se Actualizó correctamente');
+                    $window.location.reload(false);
 	                $mdDialog.hide();
 	            }, function(err) {
 	                toastr.error('No Se Actualizo');
@@ -143,14 +140,14 @@ app
 	        }, function() {});
 	    };
 
-	    $scope.upload = function(){
-	    	$http.post($scope.form, {
-	    		headers:{'Content-Type':'multipart/form-data'}
-	    	})
-	    	.success(function(d){
-	    		console.log(d);
-	    	});
-	    };
+	    // $scope.upload = function(){
+	    // 	$http.post($scope.form, {
+	    // 		headers:{'Content-Type':'multipart/form-data'}
+	    // 	})
+	    // 	.success(function(d){
+	    // 		console.log(d);
+	    // 	});
+	    // };
 	})
 
 

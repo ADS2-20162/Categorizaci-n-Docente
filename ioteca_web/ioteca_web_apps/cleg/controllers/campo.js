@@ -1,9 +1,9 @@
 app
-	.controller('CampoCtrl', function($scope, APII, $state, $stateParams, $window, $mdDialog, toastr){
-		var params = {};
-		params.page = $stateParams.page ? $stateParams.page : 1;
-		params.page_size = 5;
-		$scope.lista = [];
+    .controller('CampoCtrl', function($scope, APII, $state, $stateParams, $window, $mdDialog, toastr){
+        var params = {};
+        params.page = $stateParams.page ? $stateParams.page : 1;
+        params.page_size = 5;
+        $scope.lista = [];
         
         
         $scope.campo =[
@@ -36,12 +36,12 @@ app
     };
         
         $scope.list = function(params){
-			APII.Campo.list(params).$promise.then(function(r){
-				$scope.lista = r;
-			}, function(err){
-				console.log("Err" +err);
-			});
-		};
-		$scope.list(params);
+            APII.Campo.list(params).$promise.then(function(r){
+                $scope.lista = r;
+            }, function(err){
+                console.log("Err" +err);
+            });
+        };
+        $scope.list(params);
 
     });

@@ -4,7 +4,8 @@ from ..models.Idioma import Idioma
 
 
 class IdiomaSerializer(serializers.ModelSerializer):
-	campo_predefinido = serializers.SlugRelatedField(slug_field='nombre', queryset=CampoPredefinido.objects.all())
+	campo_predefinido = serializers.SlugRelatedField(slug_field='nombre',
+	 queryset=CampoPredefinido.objects.all())
 
 	class Meta:
 		model = Idioma

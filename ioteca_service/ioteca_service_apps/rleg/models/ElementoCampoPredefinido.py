@@ -13,4 +13,5 @@ class ElementoCampoPredefinido(models.Model):
         verbose_name_plural = "Elemento Campos Predefinidos"
 
     def __str__(self):
-        return u'%s' % self.elemento
+        return("{0}: {1}".format(self.elemento.nombre,self.
+        	campo_predefinido.nombre))

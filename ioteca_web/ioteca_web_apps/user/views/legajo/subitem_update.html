@@ -12,81 +12,7 @@
             </div>
         </md-toolbar>
         <!-- <md-dialog-actions> -->
-        <md-dialog-content ng-if="listaECP.length == 0">
-            <md-progress-circular layout-fill md-mode="indeterminate" ng-hide="true"></md-progress-circular>
-            <div layout-gt-sm="row" ng-hide="true">
-                <md-input-container class="md-block" flex-gt-sm>
-                    <label>Persona</label>
-                    <md-select ng-model="registro.persona" required disabled>
-                        <md-option ng-repeat="p in listaP"
-                        value="{{p.nombres}}">{{p.nombres}}</md-option>
-                    </md-select>
-                </md-input-container> 
-            </div>   
-            <div class="md-dialog-content">
-                <div ng-repeat="e in listaEC | filter:subitem" layout-gt-sm="row">
-                    <md-input-container class="md-block" flex-gt-sm>
-                        <label>{{e.nombre}}</label><br ng-if="e.campo.tipo_campo == 'image'">
-                        <input ng-model="e.d_string" ng-if="e.campo.tipo_campo == 'string'" minlength="7" maxlength="100" required/>
-                        <input ng-model="e.d_url"  ng-if="e.campo.tipo_campo == 'url'" maxlength="200" required/>
-                        <textarea ng-model="e.d_texto" ng-if="e.campo.tipo_campo == 'text'" md-maxlength="150" rows="3" md-select-on-focus></textarea>
-                        <input type="number" ng-model="e.d_number" ng-if="e.campo.tipo_campo == 'number'" required/>
-                        <input type="number" ng-model="e.d_decimal" ng-if="e.campo.tipo_campo == 'decimal'" 
-                            ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"/>
-                        <md-datepicker ng-model="e.d_fecha" ng-if="e.campo.tipo_campo == 'date'"></md-datepicker>
-                        <md-select ng-model="e.select" ng-if="e.campo.tipo_campo == 'select'" required>
-                            <md-option ng-repeat="d in listDC | filter: {elemento_campo:e.nombre}" value="{{d.nombre}}">{{d.nombre}}</md-option>
-                        </md-select>
-                    </md-input-container>
-                    <div ng-if="e.campo.tipo_campo == 'image'" >
-                        <lf-ng-md-file-input lf-files="files06" lf-api="api06" lf-required  lf-filesize="10MB" lf-totalsize="20MB"  lf-mimetype="image/*" preview ></lf-ng-md-file-input>
-                        <div ng-messages="testForm.files00.$error" style="color:red;">
-                            <div ng-message="required">This is required.</div>
-                            <div ng-message="filesize">File size too large.</div>
-                            <div ng-message="totalsize">Total size too large.</div>
-                            <div ng-message="mimetype">Mimetype error.</div>
-                        </div>
-                        <!-- <md-card class="form-foto"> -->
-                        <!--     <img ngf-src="e.d_imagen" id="perfil"> -->
-                        <!-- </md-card> -->
-                        <!-- <choose-file layout-gt-sm="row" flex="80"> -->
-                        <!--     <input id="fileInput" type="file" class="ng-hide" ngf-select  ng-model="e.d_imagen"> -->
-                        <!--     <div > -->
-                        <!--     <md-button class="md-fab md-mini md-primary" aria-label="chooseFile"> -->
-                        <!--             <ng-md-icon icon="file_upload"></ng-md-icon> -->
-                        <!--     </md-button> -->
-                        <!--     </div> -->
-                        <!--     <md-input-container flex class="md-block"> -->
-                        <!--         <input type="text" ng-model="fileName" aria-label="fileInput" disabled> -->
-                        <!--         <div class="hint"></div> -->
-                        <!--     </md-input-container> -->
-                        <!-- </choose-file> -->
-                    </div>
-                    <div layout-gt-sm="column" ng-if="e.campo.tipo_campo == 'file'">
-                        <label align="center" style="color:#9e9e9e;padding-bottom:0.5em">{{e.nombre}}</label>
-                        <choose-file layout="row" class="md-block">
-                            <input id="fileInput" type="file" class="ng-hide" ngf-select ng-model="e.d_file">
-                            <md-input-container flex class="md-block">
-                                <input type="text" aria-label="file input" ng-model="fileName" disabled>
-                                <div class="hint">Select your file</div>
-                            </md-input-container>
-                            <div>
-                                <md-button id="uploadButton" class="md-fab md-mini md-primary">
-                                    <ng-md-icon icon="attach_file" aria-label="attach_file"></ng-md-icon>
-                                </md-button>
-                            </div>                            
-                        </choose-file>
-                    </div>
-                </div>                
-        </md-dialog-content> 
-        <md-dialog-actions layout="row" ng-if="listaECP.length == 0">
-            <span flex></span>
-            <md-button type="reset" ng-click="cancel()" class="md-raised">Cancelar</md-button>
-            <md-button type="submit" ng-click="saveRegistro()" class="md-raised md-primary" ng-disabled="!myform.$valid">Guardar</md-button>
-        </md-dialog-actions>
-
-
-        <div layout="column" ng-if="listaECP.length > 0 | filter: subitem">
+        <div layout="column">
         <div flex id="form-part-1">
         <div layout="row" class="md-dialog-content">
             <div layout-gt-sm="row" ng-hide="true">
@@ -99,31 +25,29 @@
                 </md-input-container> 
             </div>  
             <div flex>
-                <!-- <lf-ng-md-file-input lf-files="files06" lf-api="api06" lf-required  lf-filesize="10MB" lf-totalsize="20MB"  lf-mimetype="image/*" preview ></lf-ng-md-file-input> -->
         <!-- <md-dialog-actions> -->
-                <div ng-repeat="e in listaEC | filter: subitem" >
+                <div ng-repeat="e in listaECR" >
                     <md-input-container class="md-block" >
-                        <label>{{e.nombre}}</label><br ng-if="e.campo.tipo_campo == 'image'">
-                        <input ng-model="e.d_string" ng-if="e.campo.tipo_campo == 'string'" minlength="7" maxlength="100" required/>
-                        <input ng-model="e.d_url"  ng-if="e.campo.tipo_campo == 'url'" maxlength="200" required/>
-                        <textarea ng-model="e.d_texto" ng-if="e.campo.tipo_campo == 'text'" md-maxlength="150" rows="3" md-select-on-focus></textarea>
-                        <input type="number" ng-model="e.d_number" ng-if="e.campo.tipo_campo == 'number'" required/>
-                        <input type="number" ng-model="e.d_decimal" ng-if="e.campo.tipo_campo == 'decimal'" 
+                        <label>{{e.elemento_campo.nombre}}</label>
+                        <input ng-model="e.d_string" ng-if="e.elemento_campo.campo.tipo_campo == 'string'" minlength="7" maxlength="100" required/>
+                        <input ng-model="e.d_url"  ng-if="e.elemento_campo.campo.tipo_campo == 'url'" maxlength="200" required/>
+                        <textarea ng-model="e.d_texto" ng-if="e.elemento_campo.campo.tipo_campo == 'text'" md-maxlength="150" rows="3" md-select-on-focus></textarea>
+                        <input type="number" ng-model="e.d_number" ng-if="e.elemento_campo.campo.tipo_campo == 'number'" required/>
+                        <input type="number" ng-model="e.d_decimal" ng-if="e.elemento_campo.campo.tipo_campo == 'decimal'" 
                             ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"/>
-                        <md-datepicker ng-model="e.d_fecha" ng-if="e.campo.tipo_campo == 'date'"></md-datepicker>
-                        <!-- <input  ng-model="persona.fecha_nac"  ng-bind="{{persona.fecha_nac | date: 'yyyy-MM-dd' }}" required disabled> -->
-                        <md-select ng-model="e.select" ng-if="e.campo.tipo_campo == 'select'" required>
+                        <md-datepicker ng-model="e.d_fecha" ng-if="e.elemento_campo.campo.tipo_campo == 'date'"></md-datepicker>
+                        <md-select ng-model="e.d_string" ng-if="e.elemento_campo.campo.tipo_campo == 'select'" required>
                             <md-option ng-repeat="d in listDC | filter: {elemento_campo:e.nombre}" value="{{d.nombre}}">{{d.nombre}}</md-option>
                         </md-select>
                     </md-input-container>
-                    <div ng-if="e.campo.tipo_campo == 'image'" >
+                    <div ng-if="e.elemento_campo.campo.tipo_campo == 'image'" >
                         <lf-ng-md-file-input lf-files="files06" lf-api="api06" lf-required  lf-filesize="10MB" lf-totalsize="20MB"  lf-mimetype="image/*" preview ></lf-ng-md-file-input>
                         <div ng-messages="testForm.files00.$error" style="color:red;">
                             <div ng-message="required">This is required.</div>
                             <div ng-message="filesize">File size too large.</div>
                             <div ng-message="totalsize">Total size too large.</div>
                             <div ng-message="mimetype">Mimetype error.</div>
-                        </div>
+                        </div> 
                         <!-- <md-card class="form-foto"> -->
                         <!--     <img ngf-src="e.d_imagen" id="perfil"> -->
                         <!-- </md-card> -->
@@ -140,10 +64,10 @@
                         <!--     </md-input-container> -->
                         <!-- </choose-file> -->
                     </div>
-                    <div layout-gt-sm="column" ng-if="e.campo.tipo_campo == 'file'">
+                    <div layout-gt-sm="column" ng-if="e.elemento_campo.campo.tipo_campo == 'file'">
                         <label align="center" style="color:#9e9e9e;padding-bottom:0.5em">{{e.nombre}}</label>
                         <choose-file layout="row" class="md-block">
-                            <input id="fileInput" type="file" class="ng-hide" ngf-select ng-model="e.d_file">
+                            <input id="fileInput" type="file" class="ng-hide" ngf-select ng-model="e.d_archivo">
                             <md-input-container flex class="md-block">
                                 <input type="text" aria-label="file input" ng-model="fileName" disabled>
                                 <div class="hint">Select your file</div>
@@ -158,7 +82,7 @@
                 </div>
             </div>
             <div flex>
-            <div layout="column" ng-repeat="e in listaECP | filter: subitem" >
+            <div layout="column" ng-repeat="e in listaECPR" >
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>{{e.campo_predefinido.nombre}}</label>
                     <md-select ng-model="e.regimen_pension"
@@ -219,7 +143,7 @@
             <!-- <span flex></span> -->
             <div>
                 <md-button type="reset" ng-click="cancel()" class="md-raised">Cancelar</md-button>
-                <md-button type="submit" ng-click="saveRegistro()" class="md-raised md-primary" ng-disabled="!myform.$valid">Guardar</md-button>
+                <md-button type="submit" ng-click="saveRegistroUpdate()" class="md-raised md-primary" ng-disabled="!myform.$valid">Guardar</md-button>
             </div>
         </div>
         </div>

@@ -1,3 +1,4 @@
+ # coding=utf-8
 # import the logging library
 import logging
 from django.utils.encoding import force_text

@@ -1,4 +1,4 @@
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, status
 from rest_framework.response import Response
 from django.db.models import Q
 from operator import __or__ as OR
@@ -27,3 +27,11 @@ class ElementoCampoPredefinidoRegistroViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    def create(self, request, pk=None):
+        print(request.data)
+        is_many = True if isinstance(request.data, list) else False
+        serializer = self.get_serializer(data=request.data, many=is_many)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

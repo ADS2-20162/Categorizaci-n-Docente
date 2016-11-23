@@ -6,19 +6,20 @@ from functools import reduce
 from ..serializers.ElementoCampo import ElementoCampoSerializer
 from ..models.ElementoCampo import ElementoCampo
 
-
 class ElementoCampoViewSet(viewsets.ModelViewSet):
     queryset = ElementoCampo.objects.all()
     serializer_class = ElementoCampoSerializer
 
     def get_queryset(self):
         try:
-            elemento = self.request.GET.get('elemento')
-            campo = self.request.GET.get('campo')
-            if elemento:
-                queryset = ElementoCampo.objects.filter(elemento__id=elemento)
-            elif campo:
-                queryset = ElementoCampo.objects.filter(campo__id=campo)
+            elemento_sub_item = self.request.GET.get('elemento_sub_item')
+            elemento_nombre = self.request.GET.get('elemento_nombre')
+            # campo = self.request.GET.get('campo')
+            if sub_item:
+                queryset = ElementoCampo.objects.filter(elemento__sub_item=elemento_sub_item,
+                                                        elemento__nombre=elemento_nombre)
+            # elif campo:
+            #     queryset = ElementoCampo.objects.filter(campo__id=campo)
             else:
                 queryset = ElementoCampo.objects.all()
 

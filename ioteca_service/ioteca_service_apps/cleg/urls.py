@@ -4,6 +4,7 @@ from .views.TipoCampo import TipoCampoViewSet
 from .views.Campo import CampoViewSet
 from .views.CampoPredefinido import CampoPredefinidoViewSet
 from .views.CategoriaAcademica import CategoriaAcademicaViewSet
+from .views.RegimenPension import RegimenPensionViewSet
 from .views.PropiedadForm import PropiedadFormViewSet
 from .views.CargoOcupado import CargoOcupadoViewSet
 from .views.CodigoPostal import CodigoPostalViewSet
@@ -32,6 +33,7 @@ router.register(r'campos', CampoViewSet)
 router.register(r'campoPredefinidos', CampoPredefinidoViewSet)
 router.register(r'categoriaAcademicas', CategoriaAcademicaViewSet)
 router.register(r'propiedadForms', PropiedadFormViewSet)
+router.register(r'regimenPension', RegimenPensionViewSet)
 router.register(r'cargoOcupados', CargoOcupadoViewSet)
 router.register(r'codigoPostales', CodigoPostalViewSet)
 router.register(r'elementos', ElementoViewSet)

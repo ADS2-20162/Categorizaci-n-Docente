@@ -14,5 +14,7 @@ class ElementoCampoRegistroSerializer(serializers.ModelSerializer):
     persona = serializers.SlugRelatedField(slug_field='nombres', queryset=Persona.objects.all())
 
     class Meta:
+        # d_imagen = serializers.ImageField(use_url=True,allow_empty_file=True)
+        # d_archivo = serializers.FileField(use_url=True,allow_empty_file=True)
         model = ElementoCampoRegistro
-        # fields = ('id','set_elemento_campo','elemento_campo','persona','data')
+        # fields = '__all__'

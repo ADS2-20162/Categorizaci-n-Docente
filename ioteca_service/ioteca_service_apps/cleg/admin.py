@@ -24,6 +24,7 @@ from .models.CampoPropiedadForm import CampoPropiedadForm
 from .models.DataPropiedad import DataPropiedad
 from .models.CampoPredefinido import CampoPredefinido
 from .models.DataCampo import DataCampo
+from .models.RegimenPension import RegimenPension
 
 
 # Register your models here.
@@ -41,6 +42,7 @@ admin.site.register(CampoPredefinido)
 admin.site.register(TipoInstitucion)
 admin.site.register(Institucion)
 admin.site.register(CategoriaAcademica)
+admin.site.register(RegimenPension)
 admin.site.register(CargoOcupado)
 admin.site.register(Pais)
 admin.site.register(Departamento)

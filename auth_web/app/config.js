@@ -3,8 +3,8 @@ var loginUrl = 'http://localhost:9000/auth_web/';
 var iotecaUrl = 'http://localhost:9000/ioteca_web/';
 
 
-var client_id = '7vgaBnPPCZkjjyk4bgn1KGnusjxjEpFYJz2QhpCU';
-var client_secret = 'zHHelI76OwYr0wzP6nEpzT1TI9gIIA6bPFI8TvseulWMEemFMHJDtp1HxvKcZ409XT3lNBbRhXhaKmbSZjhN7jwQpZBSHVECsYiDNhQ3xnfbEzGGXyvsTR7zEeBYTMdX';
+var client_id = 'oTxsBR7rZ7bGdto9nYcutirGz3nFuSQjEf3IppYL';
+var client_secret = 'uyk9BnPBXQGs1hei7M2Cjd1xBgCc6UfnXV8qKUV3T5QbXWNGliCQUCwuefXGm0PIWlz7rYFWYGL0ytlTk8KqVvhU28bFNokwbFjnfX0wuU63DfFDAoHvJb7ibWbfm1Is';
 var grant_type = 'password';
 
 var config = {
