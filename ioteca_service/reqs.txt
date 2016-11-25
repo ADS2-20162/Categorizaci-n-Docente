@@ -2,6 +2,7 @@ Django==1.9.6
 django-braces==1.8.1
 django-cors-headers==1.1.0
 django-oauth-toolkit==0.10.0
+django-extensions==1.7.5
 djangorestframework==3.3.3
 docutils==0.12
 django-countries==4.0
