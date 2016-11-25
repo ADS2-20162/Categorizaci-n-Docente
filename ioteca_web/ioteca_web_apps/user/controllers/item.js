@@ -32,59 +32,9 @@ app
         }
         elementoList(params);
 
-        $scope.listarElementCampReg = function(){
-            ApiUser.ElementoCampoRegistro.list().$promise.then(function(r){
-                $scope.listaECR = r.results;
-            }, function(err){
-                console.log("Err" + err);
-            });
-        }
-        $scope.listarElementCampReg(); 
-
-        $scope.listarElementCampPred = function(){
-            ApiUser.ElementoCampoPredefinido.list().$promise.then(function(r){
-                $scope.listaECP = r;
-                var limitStep = 2;
-                $scope.limite = limitStep;
-            }, function(err){
-                console.log("err" + err);
-            });
-        }
-        $scope.listarElementCampPred();
-
-        $scope.listarElementCampPredReg = function(){
-            ApiUser.ElementoCampoPredefinidoRegistro.list().$promise.then(function(r){
-                $scope.listaECPR = r.results;
-            }, function(err){
-                console.log("err" + err);
-            });
-        }
-        $scope.listarElementCampPredReg();
-
-        $scope.listPerson = function(){
-          ApiUser.Persona.list(params).$promise.then(function(r){
-            $scope.listaP = r.results;
-          }, function(err){
-            console.log("Err" +err);
-          });    
-        };
-        $scope.listPerson(); 
-
-        $scope.listElemCam = function() {  
-          ApiUser.ElementoCampo.list().$promise.then(function(r) {
-              $scope.listaEC = r.results;
-              var limitStep = 3;
-              $scope.limit = limitStep;
-          }, function(err) {
-            console.log("Err " + err);
-          });
-        };
-        $scope.listElemCam();
-
-
       	$scope.listAll = function() {
           params.all = true; //así debe quedar
-          $scope.listarElementCampReg(); 
+          // $scope.listarElementCampReg(); 
         };
         
         $scope.listRegimenPension = function() {
@@ -186,23 +136,25 @@ app
             ApiUser.Elemento.list().$promise.then(function(r){
                 $scope.listaE = r.results;            
             ApiUser.ElementoCampo.list().$promise.then(function(r) {
-                $scope.listEC = r.results;
+                $scope.listaEC = r.results;
+                var limitStep = 3;
+                $scope.limit = limitStep;
                 ApiUser.ElementoCampoRegistro.list({persona:$scope.person_id}).$promise.then(function(r){  
-                    $scope.listECR = r.results;
+                    $scope.listaECR = r.results;
                     // Verificando que por menos tenga datos guardados
-                    if($scope.listECR.length != 0 ){
+                    if($scope.listaECR.length != 0 ){
                         elemen_reg = [];
                         var e = $scope.listaE.length;
-                        var ec = $scope.listEC.length;
-                        var ecr = $scope.listECR.length; 
+                        var ec = $scope.listaEC.length;
+                        var ecr = $scope.listaECR.length; 
                         
                         if(e > 0){
                             elemen_camp = [];
                             for (var i = 0; i < e; i++){
                                 elemento = [];
                                 for (var j = 0; j < ec; j++){
-                                    if($scope.listaE[i].nombre == $scope.listEC[j].elemento.nombre){
-                                        elemento.push($scope.listEC[j]);
+                                    if($scope.listaE[i].nombre == $scope.listaEC[j].elemento.nombre){
+                                        elemento.push($scope.listaEC[j]);
                                     }
                                 };
                                 if(elemento.length > 0){
@@ -213,8 +165,8 @@ app
                             for (var i = 0; i < e; i++){
                                 elemento = [];
                                 for (var j = 0; j < ecr; j++){
-                                    if($scope.listaE[i].nombre == $scope.listECR[j].elemento_campo.elemento.nombre){
-                                        elemento.push($scope.listECR[j]);
+                                    if($scope.listaE[i].nombre == $scope.listaECR[j].elemento_campo.elemento.nombre){
+                                        elemento.push($scope.listaECR[j]);
                                     }
                                 }
                                 elemento_order = [];
@@ -298,24 +250,26 @@ app
             });      
 
             ApiUser.ElementoCampoPredefinido.list().$promise.then(function(r){
-                $scope.listECP = r;
+                $scope.listaECP = r;
+                var limitStep = 2;
+                $scope.limite = limitStep;
                 
                 ApiUser.ElementoCampoPredefinidoRegistro.list().$promise.then(function(r){
-                    $scope.listECPR = r.results;
+                    $scope.listaECPR = r.results;
                     // Verificando que por menos tenga datos guardados
-                    if($scope.listECPR.length != 0 ){
+                    if($scope.listaECPR.length != 0 ){
                         elemen_reg_pred = [];
                         var e = $scope.listaE.length;
-                        var ecp = $scope.listECP.length;
-                        var ecpr = $scope.listECPR.length; 
+                        var ecp = $scope.listaECP.length;
+                        var ecpr = $scope.listaECPR.length; 
                         
                         if(e > 0){
                             elemen_camp_pred = [];
                             for (var i = 0; i < e; i++){
                                 elemento = [];
                                 for (var j = 0; j < ecp; j++){
-                                    if($scope.listaE[i].nombre == $scope.listECP[j].elemento.nombre){
-                                        elemento.push($scope.listECP[j]);
+                                    if($scope.listaE[i].nombre == $scope.listaECP[j].elemento.nombre){
+                                        elemento.push($scope.listaECP[j]);
                                     }
                                 };
                                 if(elemento.length > 0){
@@ -326,8 +280,8 @@ app
                             for (var i = 0; i < e; i++){
                                 elemento = [];
                                 for (var j = 0; j < ecpr; j++){
-                                    if($scope.listaE[i].nombre == $scope.listECPR[j].elemento_campo_pred.elemento.nombre){
-                                        elemento.push($scope.listECPR[j]);
+                                    if($scope.listaE[i].nombre == $scope.listaECPR[j].elemento_campo_pred.elemento.nombre){
+                                        elemento.push($scope.listaECPR[j]);
                                     }
                                 }
                                 if(elemento.length > 0){
@@ -394,7 +348,6 @@ app
                         }
                         else{
                             toastr.info(e + " ya existe");
-                            // $scope.e = '';
                             break;
                         }
                     }
@@ -404,9 +357,7 @@ app
             });            
         };
         $scope.select_option = function(e){
-            // $scope.visibility = true;
             $scope.select = e;
-            // console.log($scope.select);
             if($scope.select != null){
                 ApiUser.DataCampoOpcion.list({data_campo:e}).$promise.then(function(r) {
                     $scope.listDCO = r;
@@ -452,8 +403,6 @@ app
                 clickOutsideToClose: false,
                 preserveScope: true,
             }).then(function() {
-                $scope.listarElementCampReg(); 
-                $scope.listarElementCampPredReg();
                 $scope.subitem_registro();
                 for(var i = 0; i < $scope.listaEC.length; i++) {
                     $scope.listaEC[i].d_string = '';
@@ -563,8 +512,6 @@ app
                 clickOutsideToClose: false,
                 preserveScope: true,
             }).then(function() {
-                $scope.listarElementCampReg(); 
-                $scope.listarElementCampPredReg();
                 $scope.subitem_registro();
             }, function() {});
         };
@@ -973,8 +920,6 @@ app
                     };
                   }
               }
-              $scope.listarElementCampReg(); 
-              $scope.listarElementCampPredReg();
               $scope.subitem_registro();
               toastr.info('Se Eliminó Correctamente');
               console.log("Eliminado");
