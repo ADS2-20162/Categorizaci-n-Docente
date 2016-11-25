@@ -138,9 +138,6 @@ app
             }, function(err) {
                 console.log("Err " + err);
             });
-      console.log("elimino");
-    }, function() {
-      console.log("no elimino");
     });
   };
 

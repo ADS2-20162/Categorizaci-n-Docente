@@ -1,12 +1,12 @@
 from django.db import models
-import uuid
 from .DimensionPerfil import DimensionPerfil
 from .Escala import Escala
 
+
 class EscalaDimension(models.Model):
 
-    # id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    dimensionperfil = models.ForeignKey(DimensionPerfil)
+    dimensionperfil = models.ForeignKey(
+        DimensionPerfil, related_name='escsdims')
     escala = models.ForeignKey(Escala)
     puntaje = models.IntegerField()
 

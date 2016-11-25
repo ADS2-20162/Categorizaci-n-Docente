@@ -4,101 +4,102 @@ app
 
     //Valores iniciales
     var url = 'ioteca_web_apps/gperfil/views';
+    var perfil_id = $stateParams.perfil_id;
+    var dp_id = $stateParams.dp_id; 
     var params = {};
     params.page = $stateParams.page ? $stateParams.page : 1;
     params.page_size =  5;
     $scope.lista_edp = [];
+    $scope.lista_esc = [];
     $scope.escala = {};
     $scope.dimensionescala = {};
+    $scope.listDim  = [];
 
-    var dp_id = $stateParams.dp_id; 
-    $scope.dimperfil = API.DimensionPerfil.get({ id:dp_id });
+    //================================================================
+    //Lista para el filtro
+    //================================================================
+    function llamar(){
+        API.DimensionPerfil.get({ id:dp_id }).$promise.then(function(r){
+        $scope.dimperfil = r;
+            API.EscalaDimension.list({perfil:$scope.dimperfil.perfil_id}).$promise.then(function(r){
+                $scope.lista_esc = r;
+                listaEscala();
+            });
+        });
+    }
+    llamar();
 
-     list = function() {
+    //================================================================
+    //Lista para el escala dimension
+    //================================================================
+    list = function() {
         API.EscalaDimension.list().$promise.then(function(r) {
             $scope.lista = r;
         });
     };
     list();
 
+    listadim = function(){
+        API.Dimension.list().$promise.then(function(r){
+            $scope.listDim = r.results;
+        });
+    };
+    listadim();
+
     $scope.goBack = function() {
     window.history.back();
     };
     
+    //================================================================
     //listar las escalas disponibles para ser agregadas a un Dimension
-    $scope.listaEscala = function(){
+    //================================================================
+    listaEscala = function(){
         API.Escala.list().$promise.then(function(r){
             $scope.lista_es = r.results;
             puntaje = null;
+            compare();
         }, function(err){
             console.log("Error Escala"+err);
         });
     };
-    $scope.listaEscala();
+    listaEscala();
 
+    //================================================================
     //listar las escalas añadidas a un dimension
-    $scope.listaEscalaDimension = function() {
+    //================================================================
+    listaEscalaDimension = function() {
         API.EscalaDimension.list({dimensionperfil:dp_id}).$promise.then(function(r) {
             $scope.lista_edp = r;
         }, function(err) {
            console.log("Error en lista_edp " + err);
         });
     };
-    $scope.listaEscalaDimension();
+    listaEscalaDimension();
 
-    //function (elemento, venctor)
-    //funcion para buscar un elemento en la lista
-    //para no guardar un Escala repetidas veces..
-    function compararE(a, v){
-        // function (elemento, venctor)
-            for (var i = 0; i < v.length; i++) {
-                if (a == v[i]['escala']) {
-                    return v[i]['escala'];
-                }  
-            }
-    }
-
-    //function (elemento, venctor)
-    //funcion para buscar un elemento en la lista
-    //para no guardar puntaje del area repetidas veces..
-    function buscarP(a, v){
-            for (var i = 0; i < v.length; i++) {
-                if (a == v[i]['puntaje']) {
-                    return v[i]['puntaje'];
-                }  
-            }
-    }
-
+    //================================================================
     //guardar escalas comparando la existencia de los que ya estan 
     //agragadas a la lsita de escalas agregadas
+    //================================================================
     $scope.guardarEscalaD = function ( dimensionperfil, escala, puntaje){
         $scope.dimensionescala = {};
         $scope.dimensionescala = { 'dimensionperfil': dimensionperfil, 'escala':escala, 'puntaje':puntaje};
         if(puntaje != null){
-            if (compararE(escala,$scope.lista) == escala) {
-            toastr.error('La Escala ya existe');
-            } else {
-                if (buscarP(puntaje, $scope.lista) == puntaje) {
-                    toastr.error('El Puntaje '+puntaje+' ya existe');
-                } else {
-                    API.EscalaDimension.save($scope.dimensionescala).$promise.then(function(r) {
-                    console.log("r: " + r);
-                    toastr.success('Se agrego correctamente');
-                    $scope.listaEscalaDimension();         
-                    }, function(err) {
-                        console.log("Err " + err  );
-                    });
-                }
-            }
+            API.EscalaDimension.save($scope.dimensionescala).$promise.then(function(r) {
+            console.log("r: " + r);
+            toastr.success('Se agrego correctamente');
+            listaEscalaDimension(); 
+            llamar();        
+            }, function(err) {
+                console.log("Err " + err  );
+            });
         }else{
             toastr.warning('Ingrese un Puntaje Valido < 100');
         } 
-        $scope.listaEscala();      
+        listaEscala();      
      };
 
     $scope.buscar = function() {
         params.page = 1;
-        // params.fields = 'nombre,direccion';
         params.fields = 'nombre';
         params.query = $scope.query;
         params.page_size= $scope.per;
@@ -111,7 +112,9 @@ app
         $mdDialog.cancel();
     };
 
+    //================================================================
     // agregar nueva Dimension
+    //================================================================
     $scope.new = function(evt) {
         $scope.dimension = {};
         $mdDialog.show({
@@ -122,13 +125,15 @@ app
             clickOutsideToClose: false,
             preserveScope: true,
         }).then(function() {
-            $scope.listaEscala();
+            listaEscala();
         }, function() {});
     };
 
+    //================================================================
     //function (elemento, venctor)
     //funcion para buscar un elemento en la lista
     //para no guardar un nombre del Escala repetidas veces..
+    //================================================================
     function buscarE(a, v){
             for (var i = 0; i < v.length; i++) {
                 if (a == v[i]['nombre']) {
@@ -136,7 +141,10 @@ app
                 }  
             }
     }
+
+    //================================================================
     //guardar la nueva escala 
+    //================================================================
     $scope.save = function(nombre) {
         $scope.escala = {};
         $scope.escala = {'nombre': nombre};
@@ -146,7 +154,7 @@ app
         } else {
             API.Escala.save($scope.escala).$promise.then(function(r) {
                 console.log("r: " + r);
-                $scope.listaEscala();
+                listaEscala();
                 $mdDialog.hide();
             }, function(err) {
                 console.log("Err " + err);
@@ -154,8 +162,10 @@ app
         }
     };
 
+    //================================================================
     //para quitar la escala agregada a una dimension
-    $scope.delete = function(d) {
+    //================================================================
+    $scope.deleteEscDim = function(d) {
         var confirm = $mdDialog.confirm()
           .title('Desea Eliminar Escala?')
           .textContent('Esta Escala se eliminará y ya no podrás encontrarla')
@@ -166,7 +176,8 @@ app
         $mdDialog.show(confirm).then(function() {
             API.EscalaDimension.delete({ id: d.id }).$promise.then(function(r) {
             toastr.info('Se elimino correctamente');
-            $scope.listaEscalaDimension();
+            listaEscalaDimension();
+            llamar();
             }, function(err) {
                 console.log("Err " + err);
             });
@@ -175,7 +186,32 @@ app
         });
     };
 
-    $scope.showInput = function(d,html_id){  //para mostrar el input de editar ponderado
+    //=================================================================
+    //para eliminar las escalas 
+    //=================================================================
+    $scope.delete = function(d) {
+        var confirm = $mdDialog.confirm()
+              .title('Desea Eliminar Escala?')
+              .textContent('Esta Escala se eliminará')
+              .ariaLabel('Lucky day')
+              .targetEvent()
+              .ok('SI')
+              .cancel('NO');
+        $mdDialog.show(confirm).then(function() {
+                API.Escala.delete({ id: d.id }).$promise.then(function(r) {
+                    console.log("r: " + r);
+                    toastr.info('Se elimino correctamente');
+                    listaEscala();
+                }, function(err) {
+                    console.log("Err " + err);
+                });
+        });
+      };
+
+    //================================================================
+    //para mostrar el input de editar ponderado
+    //================================================================
+    $scope.showInput = function(d,html_id){  
         d.isEditable = true;
         $timeout(function() {
             var element = $window.document.getElementById(html_id);
@@ -183,13 +219,18 @@ app
               element.focus();
           });
     };
-    $scope.editPtj = function(e, d, puntaje){        //funcion para eventos del teclado
+
+
+    //================================================================
+    //funcion para eventos del teclado
+    //================================================================
+    $scope.editPtj = function(e, d, puntaje){        
         switch(e.keyCode){
             case 27:                        //teclado ESC sin guardar o calcel
                 d.isEditable = false;
-                $scope.listaEscalaDimension();
+                listaEscalaDimension();
                 break;
-            case 13:                         //teclado INTRO para guardar la actualizacion del ponderado mediante el Input
+            case 13:                        //teclado INTRO para guardar la actualizacion del ponderado mediante el Input
                 $scope.num = {};
                 $scope.num = {'puntaje':puntaje};
                 if (puntaje != null) {
@@ -199,7 +240,7 @@ app
                     API.EscalaDimension.update({ id: d.id }, d).$promise.then(function(r) {
                             console.log("r: " + r);
                             toastr.success('Se Actualizo Satisfactoriamente');
-                            $scope.listaEscalaDimension();
+                            listaEscalaDimension();
                         }, function(err) {
                             console.log("Err " + err);
                         });
@@ -212,10 +253,27 @@ app
         }
     };
 
-    //======Funcion para ocultar INPUT al hacer clic fuera del input===///
-    $scope.ocultarInput = function(d){          //funcion para ocultar al hacer click fura del input
+    //================================================================
+    //Funcion para ocultar INPUT al hacer clic fuera del input
+    //================================================================
+    $scope.ocultarInput = function(d){
         d.isEditable = false;
-        $scope.listaEscalaDimension();
+        listaEscalaDimension();
     };
+
+    //================================================================
+    //funcion filterstart
+    //================================================================
+    function compare(){
+        for (var j = 0; j < $scope.lista_esc.length ; j++) {
+            for (var i = 0; i < $scope.lista_es.length ; i++) {
+                if($scope.lista_es[i].nombre===$scope.lista_esc[j].escala){
+                    $scope.lista_es.splice(i,1);
+                }
+            }                 
+        }
+    }
+    compare();
+
 
 });

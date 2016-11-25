@@ -198,6 +198,28 @@ app
         });
     };
 
+    //========================================================================
+    //eliminar las dimensiones
+    //========================================================================
+    $scope.deleteDim = function(d) {
+        var confirm = $mdDialog.confirm()
+              .title('Desea Eliminar Dimension?')
+              .textContent('Esta Dimension se eliminará')
+              .ariaLabel('Lucky day')
+              .targetEvent()
+              .ok('SI')
+              .cancel('NO');
+        $mdDialog.show(confirm).then(function() {
+                API.Dimension.delete({ id: d.id }).$promise.then(function(r) {
+                    console.log("r: " + r);
+                    toastr.info('Se elimino correctamente');
+                    listDimension();
+                }, function(err) {
+                    console.log("Err " + err);
+                });
+        });
+      };
+
     //mdDialog
     $scope.cancel = function() {
         $mdDialog.cancel();
@@ -382,11 +404,30 @@ app
         break;
         }
     };
-
+    //===================================================================
     //======Funcion para ocultar INPUT al hacer clic fuera del input===///
-    $scope.ocultarInput = function(d){          //funcion para ocultar al hacer click fura del input
-        d.isEditable = false;
-        listAreaPerfil();
-    };
+    //===================================================================
+    $scope.ocultarInput = function(d){         
+            d.isEditable = false;
+            listAreaPerfil();
+        };
+
+        $scope.delete = function(d) {
+        var confirm = $mdDialog.confirm()
+              .title('Desea Eliminar Area?')
+              .textContent('Esta Area se eliminará')
+              .ariaLabel('Lucky day')
+              .targetEvent()
+              .ok('SI')
+              .cancel('NO');
+        $mdDialog.show(confirm).then(function() {
+                API.Area.delete({ id: d.id }).$promise.then(function(r) {
+                    toastr.info('El Area se elimino correctamente');
+                    listarAreas();
+                }, function(err) {
+                });
+        }, function() {
+        });
+      };
 
 });

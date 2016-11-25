@@ -120,6 +120,27 @@ app
         }]
     });
 
+    //menu para Reportes
+    sections.push({
+        menu: [{
+            title: 'Reportes',
+            type: 'toggle',
+            icon: 'content_paste',
+            menu_items: [{
+                title: 'Resumen',
+                state: 'gperfil.resumen',
+                icon: 'poll',
+                type: 'link'
+            },{
+                title: 'Static',
+                state: 'gperfil.statistic',
+                icon: 'trending_up',
+                type: 'link'
+            },
+            ]
+        }]
+    });
+
     tabs.push({
         children: [{
             title: 'Inicio',

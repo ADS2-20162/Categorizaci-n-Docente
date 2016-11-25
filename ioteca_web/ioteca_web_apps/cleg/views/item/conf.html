@@ -26,7 +26,7 @@
                 <div flex="50" class="page" layout="column">
                     <md-card ng-repeat="d in lista" ng-if="$even">
                         <md-card-actions>
-                            <table>
+                            <table class="table-material">
                                 <tbody>
                                     <tr ng-mouseover="d.isHover=true" ng-mouseleave="d.isHover=false">
                                         <td align="Left" width="10">
@@ -45,7 +45,7 @@
                                             </md-button>
                                         </td>
                                         <!-- <td ></td> -->
-                                        <td width="100"> 
+                                        <td width="120"> 
                                             <span ng-show="d.isHover">
                                             <md-button class="md-icon-button" aria-label="delete" ng-click="delItem(d)">
                                                 <md-tooltip md-autohide>Eliminar Item</md-tooltip>
@@ -116,7 +116,7 @@
                 <div flex="50"  class="page"  layout="column">
                     <md-card ng-repeat="d in lista" ng-if="$odd">
                         <md-card-actions>
-                            <table>
+                            <table class="table-material">
                                 <tbody>
                                     <tr ng-mouseover="d.isHover=true" ng-mouseleave="d.isHover=false">
                                         <td align="Left" width="10">
@@ -134,7 +134,7 @@
                                             </md-button>
                                         </td>
                                         <td ></td>
-                                        <td align="right" width="100"> 
+                                        <td align="right" width="120"> 
                                             <span ng-show="d.isHover">
                                             <md-button class="md-icon-button" aria-label="delete" ng-click="delItem(d)">
                                                 <md-tooltip md-autohide>Eliminar Item</md-tooltip>

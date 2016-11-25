@@ -14,11 +14,11 @@ class ElementoCampoPredefinidoViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         try:
             elemento = self.request.GET.get('elemento')
-            campopre = self.request.GET.get('campopre')
+            subitem = self.request.GET.get('subitem')
             if elemento:
                 queryset = ElementoCampoPredefinido.objects.filter(elemento__id=elemento)
-            elif campopre:
-                queryset = ElementoCampoPredefinido.objects.filter(campo_predefinido__id=campopre)
+            elif subitem:
+                queryset = ElementoCampoPredefinido.objects.filter(elemento__sub_item__nombre=subitem)
             else:
                 queryset = ElementoCampoPredefinido.objects.all()
 

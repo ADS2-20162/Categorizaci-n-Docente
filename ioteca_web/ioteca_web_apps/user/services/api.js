@@ -246,50 +246,24 @@ app
             ElementoCampoRegistro: $resource(url2 + "elementoCampoRegistro/:id/", { 'id': '@id' },{
                 'upload': {
                     method: 'POST',
-                    transformRequest: 
-                        function transformImageRequest(data) {
-                            if (data === undefined)
-                                return data;                            
-                            var fd = new FormData();
-                            angular.forEach(data, function(value, key) {
-                                if (value instanceof FileList) {
-                                    if (value.length == 1) {
-                                        fd.append(key, value[0]);
-                                    } else {
-                                        angular.forEach(value, function(file, index) {
-                                            fd.append(key + '_' + index, file);
-                                        });
-                                    }
-                                } else {
-                                    fd.append(key, value);
-                                }
-                            });
-
-                            return fd;
-                        },
-                    headers: { 'Content-Type': undefined } 
+                    headers: { 'Content-Type': undefined }, 
+                    transformRequest: angular.identity
+                    // transformRequest: function transformMultipleRequest(data) {
+                    //     var formData = new FormData();
+                    //     angular.forEach(data, function(value, key) {
+                    //         formData.append(key,value)
+                    //     });
+                    //     return formData;
+                    // } , 
                 },
                 "update": { 
                     method: 'PUT' ,
                     transformRequest: 
                         function transformImageRequest(data) {
-                            if (data === undefined)
-                                return data;                            
                             var fd = new FormData();
-                            angular.forEach(data, function(value, key) {
-                                if (value instanceof FileList) {
-                                    if (value.length == 1) {
-                                        fd.append(key, value[0]);
-                                    } else {
-                                        angular.forEach(value, function(file, index) {
-                                            fd.append(key + '_' + index, file);
-                                        });
-                                    }
-                                } else {
-                                    fd.append(key, value);
-                                }
+                            angular.forEach(data, function(value, key) {                                
+                                fd.append(key, value);
                             });
-
                             return fd;
                         } ,
                     headers: { 'Content-Type': undefined }
@@ -423,6 +397,11 @@ app
                 "list": {method: 'GET', isArray: true},
             }),
 
+            DataCampoOpcion: $resource(url1 + "dataCamposOpciones/:id/", {'id': '@id'},{
+                "update": {method: 'PUT'},
+                "list": {method: 'GET', isArray: true},
+            }),
+
             Perfil: $resource(url5 + "perfiles/:id/", {'id': '@id'}, {
 	            "update": {method: 'PUT'},
 	            "list": {method: 'GET', isArray: true},
@@ -448,6 +427,14 @@ app
 	            "list": {method: 'GET', isArray: true},
 	        }),
 	        Registro: $resource(urlD + "registros/:id", {'id': '@id'}, {
+	            "update": {method: 'PUT'},
+	            "list": {method: 'GET', isArray: true},
+	        }), 
+	        Adjunto: $resource(urlD + "adjuntos/:id/", {'id': '@id'}, {
+	            "update": {method: 'PUT'},
+	            "list": {method: 'GET', isArray: true},
+	        }),
+	        Observacion: $resource(urlD + "observaciones/:id/", {'id': '@id'}, {
 	            "update": {method: 'PUT'},
 	            "list": {method: 'GET', isArray: true},
 	        }),

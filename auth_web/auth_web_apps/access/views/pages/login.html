@@ -1,5 +1,6 @@
 <!-- Login -->
-<div>
+<div align="center">
+    <md-card flex="30">
     <div class="navbar">
         <div class="navbar-brand text-center">
             <div class="md-toolbar-tools">
@@ -16,24 +17,23 @@
         <div class="input-group m-b-20">
             <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
             <div class="fg-line">
-                <input type="text" class="md-input" ng-model="user.username" required placeholder="Username">
+                <input type="text" class="inputtexbox" ng-model="user.username" required placeholder="Username">
             </div>
         </div>
         <div class="input-group m-b-20">
             <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
             <div class="fg-line">
-                <input type="password" class="md-input" ng-model="user.password" required placeholder="Password">
+                <input type="password" class="inputtexbox" ng-model="user.password" required placeholder="Password">
             </div>
         </div>
         <div class="input-group m-b-20">
-            <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
-            <div class="fg-line">
-                <a href="" class="btn btn-login btn-danger btn-float" ng-click="login()">
-                    <ng-md-icon icon="login"></ng-md-icon>
-                </a>
-            </div>
+            <md-button ng-click="login()" type="reset" class="md-raised md-primary">
+                <ng-md-icon icon="login"></ng-md-icon>
+                Login
+            </md-button>
         </div>
     </form>
+    </md-card>
 </div>
 <!-- Register -->
 <div class="lc-block" id="l-register" data-ng-class="{ 'toggled': lctrl.register === 1 }" data-ng-if="lctrl.register === 1">
@@ -83,45 +83,3 @@
         <li data-block="#l-register" class="bgm-red" data-ng-click="lctrl.forgot = 0; lctrl.register = 1">Register</li>
     </ul>
 </div>
-<!-- Older IE warning message -->
-<!--[if lt IE 9]>
-            <div class="ie-warning">
-                <h1 class="c-white">Warning!!</h1>
-                <p>You are using an outdated version of Internet Explorer, please upgrade <br/>to any of the following web browsers to access this website.</p>
-                <div class="iew-container">
-                    <ul class="iew-download">
-                        <li>
-                            <a href="http://www.google.com/chrome/">
-                                <img src="img/browsers/chrome.png" alt="">
-                                <div>Chrome</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.mozilla.org/en-US/firefox/new/">
-                                <img src="img/browsers/firefox.png" alt="">
-                                <div>Firefox</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://www.opera.com">
-                                <img src="img/browsers/opera.png" alt="">
-                                <div>Opera</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.apple.com/safari/">
-                                <img src="img/browsers/safari.png" alt="">
-                                <div>Safari</div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie">
-                                <img src="img/browsers/ie.png" alt="">
-                                <div>IE (New)</div>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <p>Sorry for the inconvenience!</p>
-            </div>
-        <![endif]-->

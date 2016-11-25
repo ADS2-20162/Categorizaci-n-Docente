@@ -1,0 +1,237 @@
+<md-dialog aria-label="Form" ng-cloak class="main">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>
+                    <span ng-hide="eje.id">Mis Documentos/Observaciones</span>
+                </h2>
+            </div>
+        </md-toolbar>
+        <md-content>
+        <md-tabs md-dynamic-height md-border-bottom>
+          <md-tab label="Documentos">
+            <md-dialog-content>
+            <form id="myForm" name="upload" ng-submit="uploadFile()">
+                <div class="md-dialog-content">
+                  <div ng-show="fromVisibility">
+                  <md-card>
+                  <div ng-hide="adj.id == null">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Nombre edit</label>
+                        <input ng-model="adj.nombre">
+                    </md-input-container>
+                  </div>
+                  <div ng-hide="adj.id">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Nombre new</label>
+                        <input ng-model="nombre">
+                    </md-input-container>
+                  </div>
+                  <!-- <div layout="row"> -->
+                    <div layout="column" ng-show="chooseVisibility">
+                        <choose-file layout="row" class="md-block">
+                            <input id="fileInput" type="file" class="ng-hide" uploader-model="file">
+                            <md-input-container flex class="md-block">
+                              <input type="text" aria-label="file input" ng-model="fileName" disabled>
+                              <div class="hint">Seleccione su Documento</div>
+                            </md-input-container>
+                            <div>
+                                <md-button id="uploadButton" class="md-fab md-mini md-primary">
+                                    <ng-md-icon icon="attach_file" aria-label="attach_file"></ng-md-icon>
+                                </md-button>
+                            </div>
+                        </choose-file>
+                    </div>
+                    <div layout-gt-sm="row" ng-hide="adj.id == null">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Descripcion</label>
+                            <input ng-model="adj.descripcion">
+                        </md-input-container>
+                        <div align="left">
+                            <label>Importante</label>
+                            <md-checkbox aria-label="Checkbox 1" ng-model="adj.priorizar" class="md-primary">
+                            </md-checkbox>
+                        </div>
+                    </div>
+                    <div layout-gt-sm="row" ng-hide="adj.id">
+                        <md-input-container class="md-block" flex-gt-sm>
+                            <label>Descripcion New</label>
+                            <input ng-model="descripcion">
+                        </md-input-container>
+                        <div align="left">
+                            <label>Importante N</label>
+                            <md-checkbox aria-label="Checkbox 1" ng-model="priorizar" class="md-primary">
+                            </md-checkbox>
+                        </div>
+                    </div>
+                  </md-card>
+                  </div>
+                    <div align="end">
+                    <md-button class="md-fab md-mini md-primary" aria-label="new" ng-click="showForm()" ng-hide="fromVisibility">
+                        <md-tooltip md-autohide>Agregar</md-tooltip>
+                        <ng-md-icon icon="add" aria-label="new"></ng-md-icon>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" aria-label="save" ng-click="saveAdj()" ng-hide="btnVisibility" ng-disabled="!upload.$valid" type="submit">
+                        <md-tooltip md-autohide>Guardar</md-tooltip>
+                        <ng-md-icon icon="save" aria-label="save"></ng-md-icon>
+                    </md-button>
+                    <md-button class="md-fab md-mini md-primary" aria-label="cancel" ng-click="closeForm()" ng-hide="btn1Visibility" type="reset">
+                        <md-tooltip md-autohide>Cancelar</md-tooltip>
+                        <ng-md-icon icon="close" aria-label="cancel"></ng-md-icon>
+                    </md-button>
+                    </div>
+                    <md-divider></md-divider>
+            </form>
+                    <div id="legajo">
+                    <md-table-container>
+                        <table class="itable">
+                            <thead md-head>
+                            <tr md-row>
+                                <th md-column>#</th>
+                                <th md-column md:order:by="name">Documentos</th>
+                                <th md-column>Priorizar</th>
+                                <th md-column>Adjuntar</th>
+                                <th md-column colspan='2' align='center'>Opciones</th>
+                            </tr>
+                            </thead>
+
+                            <tbody class="itbody">
+                            <tr md-row ng-repeat="d in listaDoc | orderBy:'priorizar':true"> 
+                                <td class="md-padding" md-cell>{{ $index +1 }}</td>
+                                <td md-cell> {{d.nombre}}</td>
+                                <td md-cell align="center"> 
+                                    <ng-md-icon  ng-style="d.priorizar === true && {'color':'#0091EA'} || d.priorizar === false && {'color':'lightgrey'}" size=25 icon="star">
+                                    </ng-md-icon>
+                                </td>
+                                <td md-cell align="center">
+                                  <md-checkbox aria-label="Checkbox 1">
+
+                                  </md-checkbox>
+                                </td>
+                                <td md-cell align="center">
+                                    <a class="md-icon-button icon-delete" aria-label="deleteCat" ng-click="deleteAdj(d)">
+                                        <md-tooltip md-autohide>Eliminar</md-tooltip>
+                                        <ng-md-icon icon="delete"></ng-md-icon>
+                                    </a>
+                                    <a class="md-icon-button icon-edit" aria-label="edit" ng-click="editarAdj(d)">
+                                        <md-tooltip md-autohide>Editar</md-tooltip>
+                                        <ng-md-icon icon="edit"></ng-md-icon>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                        <ng-md-icon  style="color:#0091EA;" size=25 icon="star">
+                        <md-tooltip md-autohide>Importantes</md-tooltip>
+                        </ng-md-icon>
+                        <ng-md-icon  style="color:lightgrey;" size=25 icon="star">
+                        <md-tooltip md-autohide>Complementarios</md-tooltip>
+                        </ng-md-icon>
+                    </div>
+            </md-dialog-content>
+          </md-tab>
+          <md-tab label="Observaciones">
+            <!-- <md-content class="md-padding">
+              <div id="legajo">
+                <md-table-container>
+                    <table md-table data-md-row-select="" mi-table>
+                        <thead md-head>
+                        <tr md-row>
+                            <th md-column>N°</th>
+                            <th md-column md:order:by="name">Emisor</th>
+                            <th md-column>Mensaje</th>
+                            <th md-column colspan='2' align='center'>Leido</th>
+                        </tr>
+                        </thead>
+
+                        <tbody md-body >
+                        <tr md-row ng-repeat="d in listaObs"> 
+                            <td class="md-padding" md-cell>{{ $index +1 }}</td>
+                            <td md-cell> {{d.user}}</td>
+                            <td md-cell>{{d.observacion}}</td>
+                            <td md-cell align="center">
+                              <md-checkbox aria-label="Checkbox 1">
+                                  
+                              </md-checkbox>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                </div>
+                <div layout="column">
+                    <div>
+                        <textarea id="txtarea" ng-model="descripcion"></textarea>
+                    </div>
+                    <div align="end ">
+                        <md-button type="reset" ng-click="saveObs(descripcion)" aria-label="cancel" class="md-raised md-primary">
+                        <ng-md-icon icon="send"></ng-md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </md-content> -->
+            <md-content > 
+             <!-- <div id="legajo">
+                <md-table-container>
+                    <table md-table data-md-row-select="" mi-table>
+                        <thead md-head>
+                        <tr md-row>
+                            <th md-column>N°</th>
+                            <th md-column md:order:by="name">Emisor</th>
+                            <th md-column>Mensaje</th>
+                        </tr>
+                        </thead>
+
+                        <tbody md-body >
+                        <tr md-row ng-repeat="d in listaObs"> 
+                            <td class="md-padding" md-cell>{{ $index +1 }}</td>
+                            <td md-cell> {{d.user}}</td>
+                            <td md-cell>{{d.observacion}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+                </div>
+                <div layout="row" layout-align="center">
+                    <md-input-container md-no-float class="md-block" >
+                      <ng-md-icon icon="message"></ng-md-icon>
+                      <input ng-model="user.phone" type="text" placeholder="Type your message">
+                    </md-input-container>
+                    <span flex="10"></span>
+                    <md-button class="md-fab md-mini md-primary" aria-label="cancel">
+                        <md-tooltip md-autohide>Enviar</md-tooltip>
+                        <ng-md-icon icon="send" aria-label="cancel"></ng-md-icon>
+                    </md-button>
+                </div> -->
+                <md-card ng-repeat="d in listaObs">
+                <md-list-item class="md-3-line" ng-repeat="item in todos" ng-click="null">
+                  <img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}" />
+                  <div class="md-list-item-text" layout="column">
+                    <h3>{{ item.who }}</h3>
+                    <h4>{{ item.what }}</h4>
+                    <p>{{ d.observacion }}</p>
+                  </div>
+                </md-list-item>
+                </md-card>
+                <md-card>
+                <div layout="row" layout-align="center">
+                    <md-input-container md-no-float class="md-block" >
+                      <ng-md-icon icon="message"></ng-md-icon>
+                      <input ng-model="user.phone" type="text" placeholder="Type your message">
+                    </md-input-container>
+                    <span flex="10"></span>
+                    <md-button class="md-fab md-mini md-primary" aria-label="cancel">
+                        <md-tooltip md-autohide>Enviar</md-tooltip>
+                        <ng-md-icon icon="send" aria-label="cancel"></ng-md-icon>
+                    </md-button>
+                </div>
+                </md-card>
+            </md-content> 
+          </md-tab>
+        </md-tabs>
+      </md-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button type="reset" aria-label="cancel" ng-click="cancel()" class="md-raised">Cerrar</md-button>
+        </md-dialog-actions>
+</md-dialog>

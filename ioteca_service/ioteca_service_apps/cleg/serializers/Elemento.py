@@ -7,13 +7,11 @@ from ..models.Elemento import Elemento
 
 class ElementoSerializer(serializers.ModelSerializer):
     item = serializers.SlugRelatedField(
-        slug_field='nombre', queryset=Item.objects.all(), 
-        required=False)
+        slug_field='nombre', queryset=Item.objects.all())
     sub_item = serializers.SlugRelatedField(
         slug_field='nombre', queryset=SubItem.objects.all())
     seccion = serializers.SlugRelatedField(
-        slug_field='nombre', queryset=Seccion.objects.all(), 
-        required=False)
+        slug_field='nombre', queryset=Seccion.objects.all())
 
     class Meta:
         model = Elemento

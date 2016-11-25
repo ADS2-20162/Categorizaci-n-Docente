@@ -10,8 +10,8 @@ from .views.CargoOcupado import CargoOcupadoViewSet
 from .views.CodigoPostal import CodigoPostalViewSet
 from .views.Elemento import ElementoViewSet
 from .views.DataCampo import DataCampoViewSet
+from .views.DataCampoOpcion import DataCampoOpcionViewSet
 from .views.CampoPropiedadForm import CampoPropiedadFormViewSet
-from .views.DataPropiedad import DataPropiedadViewSet
 from .views.Distrito import DistritoViewSet
 from .views.Provincia import ProvinciaViewSet
 from .views.Departamento import DepartamentoViewSet
@@ -32,14 +32,14 @@ router.register(r'tipoCampos', TipoCampoViewSet)
 router.register(r'campos', CampoViewSet)
 router.register(r'campoPredefinidos', CampoPredefinidoViewSet)
 router.register(r'categoriaAcademicas', CategoriaAcademicaViewSet)
-router.register(r'propiedadForms', PropiedadFormViewSet)
 router.register(r'regimenPension', RegimenPensionViewSet)
+router.register(r'propiedadForms', PropiedadFormViewSet)
 router.register(r'cargoOcupados', CargoOcupadoViewSet)
 router.register(r'codigoPostales', CodigoPostalViewSet)
 router.register(r'elementos', ElementoViewSet)
 router.register(r'dataCampos', DataCampoViewSet)
+router.register(r'dataCamposOpciones', DataCampoOpcionViewSet)
 router.register(r'campoPropiedadForms', CampoPropiedadFormViewSet)
-router.register(r'dataPropiedades', DataPropiedadViewSet)
 router.register(r'distritos', DistritoViewSet)
 router.register(r'provincias', ProvinciaViewSet)
 router.register(r'departamentos', DepartamentoViewSet)

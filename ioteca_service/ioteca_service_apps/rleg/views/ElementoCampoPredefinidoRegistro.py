@@ -12,11 +12,11 @@ class ElementoCampoPredefinidoRegistroViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         try:
-            elemento_campo_pred = self.request.GET.get('elemento_campo_pred')
+            subitem = self.request.GET.get('subitem')
             persona = self.request.GET.get('persona')
 
-            if elemento_campo_pred:
-                queryset = ElementoCampoPredefinidoRegistro.objects.filter(elemento_campo_pred__id=elemento_campo_pred)
+            if subitem:
+                queryset = ElementoCampoPredefinidoRegistro.objects.filter(elemento_campo_pred__elemento__sub_item__nombre=subitem)
             elif persona:
                 queryset = ElementoCampoPredefinidoRegistro.objects.filter(persona__id=persona)
             else:
@@ -27,7 +27,7 @@ class ElementoCampoPredefinidoRegistroViewSet(viewsets.ModelViewSet):
 
         return queryset
 
-    def create(self, request, pk=None):
+    def create(self, request):
         print(request.data)
         is_many = True if isinstance(request.data, list) else False
         serializer = self.get_serializer(data=request.data, many=is_many)

@@ -12,19 +12,20 @@ from ioteca_service_apps.cat.models import Persona
 from ..serializers.ElementoCampoRegistro import ElementoCampoRegistroSerializer
 from ..models.ElementoCampoRegistro import ElementoCampoRegistro
 
-
-
 class ElementoCampoRegistroViewSet(viewsets.ModelViewSet):
     queryset = ElementoCampoRegistro.objects.all()
     serializer_class = ElementoCampoRegistroSerializer
-    # parser_classes = (MultiPartParser, FormParser,)
+    parser_classes = (MultiPartParser, FormParser,)
 
     def get_queryset(self):
         try:
-            elemento_campo = self.request.GET.get('elemento_campo_id')
-            print(elemento_campo)
-            if elemento_campo:
-                return ElementoCampoRegistro.objects.filter(elemento_campo_id=elemento_campo)
+            subitem = self.request.GET.get('subitem')
+            persona = self.request.GET.get('persona')
+            print(subitem)
+            if subitem:
+                return ElementoCampoRegistro.objects.filter(elemento_campo__elemento__sub_item__nombre=subitem)
+            elif persona:
+                return ElementoCampoRegistro.objects.filter(persona__id=persona)
 
         except Exception as e:
             print(e)
@@ -41,21 +42,23 @@ class ElementoCampoRegistroViewSet(viewsets.ModelViewSet):
 
         return queryset
 
-    # def post(self, request, format=None, *args, **kwargs):
-    #     return Response({'raw': request.data, 'data': request._request.POST,
-    #                      'files': str(request._request.FILES)})
-        # return sub_item
-    def create(self, request, pk=None):
+    def create(self, request, *args, **kwargs):
         print(request.data)
         is_many = True if isinstance(request.data, list) else False
+
         serializer = self.get_serializer(data=request.data, many=is_many)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
     # def delete(self, request, *args, **kwargs):
-    #     for x in request.GET:
-    #         myDict = request.GET.get("%s" % x)
-    #         ElementoCampoRegistro.objects.filter(id=myDict).delete()
-    #         # self.perform_destroy(Dimension_Categoria.objects.filter(id=myDict))
-    #         return Response(status=status.HTTP_204_NO_CONTENT)
+        # print(request.GET)
+        # a = dict(request.GET)
+        # for value in a.values():
+        #     b = value[0]
+        #     print(b)
+        # for x in request.GET:
+        #     myDict = request.GET.get("%s" % x)
+        # ElementoCampoRegistro.objects.filter(id=myDict).delete()
+        # return Response(status=status.HTTP_204_NO_CONTENT)

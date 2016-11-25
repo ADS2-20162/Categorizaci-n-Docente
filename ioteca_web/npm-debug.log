@@ -1,0 +1,73 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '–g',
+1 verbose cli   'gulp' ]
+2 info using npm@2.15.11
+3 info using node@v4.6.2
+4 verbose install initial load of /home/r063r/proyectosdjango/gperfil/gperfil/package.json
+5 warn package.json pydev@1.0.0 No repository field.
+6 warn package.json pydev@1.0.0 No README data
+7 verbose installManyTop reading scoped package data from /home/r063r/proyectosdjango/gperfil/gperfil/node_modules/gulp-install/package.json
+8 verbose readDependencies loading dependencies from /home/r063r/proyectosdjango/gperfil/gperfil/package.json
+9 silly cache add args [ '–g', null ]
+10 verbose cache add spec –g
+11 silly cache add args [ 'gulp@^3.9.0', null ]
+12 verbose cache add spec gulp@^3.9.0
+13 silly cache add parsed spec Result {
+13 silly cache add   raw: 'gulp@^3.9.0',
+13 silly cache add   scope: null,
+13 silly cache add   name: 'gulp',
+13 silly cache add   rawSpec: '^3.9.0',
+13 silly cache add   spec: '>=3.9.0 <4.0.0',
+13 silly cache add   type: 'range' }
+14 silly addNamed gulp@>=3.9.0 <4.0.0
+15 verbose addNamed ">=3.9.0 <4.0.0" is a valid semver range for gulp
+16 silly addNameRange { name: 'gulp', range: '>=3.9.0 <4.0.0', hasData: false }
+17 silly mapToRegistry name gulp
+18 silly mapToRegistry using default registry
+19 silly mapToRegistry registry https://registry.npmjs.org/
+20 silly mapToRegistry data Result {
+20 silly mapToRegistry   raw: 'gulp',
+20 silly mapToRegistry   scope: null,
+20 silly mapToRegistry   name: 'gulp',
+20 silly mapToRegistry   rawSpec: '',
+20 silly mapToRegistry   spec: 'latest',
+20 silly mapToRegistry   type: 'tag' }
+21 silly mapToRegistry uri https://registry.npmjs.org/gulp
+22 verbose addNameRange registry:https://registry.npmjs.org/gulp not in flight; fetching
+23 silly cache add parsed spec Result {
+23 silly cache add   raw: '–g',
+23 silly cache add   scope: null,
+23 silly cache add   name: null,
+23 silly cache add   rawSpec: '–g',
+23 silly cache add   spec: '/home/r063r/proyectosdjango/gperfil/gperfil/ioteca_web/–g',
+23 silly cache add   type: 'local' }
+24 verbose request uri https://registry.npmjs.org/gulp
+25 verbose request no auth needed
+26 info attempt registry request try #1 at 15:51:26
+27 verbose request id bd162a2b8fa249bc
+28 http request GET https://registry.npmjs.org/gulp
+29 error addLocal Could not install /home/r063r/proyectosdjango/gperfil/gperfil/ioteca_web/–g
+30 info retry will retry, error on last attempt: TypeError: The header content contains invalid characters
+31 info attempt registry request try #2 at 15:51:36
+32 http request GET https://registry.npmjs.org/gulp
+33 info retry will retry, error on last attempt: TypeError: The header content contains invalid characters
+34 info attempt registry request try #3 at 15:52:36
+35 http request GET https://registry.npmjs.org/gulp
+36 verbose stack Error: ENOENT: no such file or directory, open '/home/r063r/proyectosdjango/gperfil/gperfil/ioteca_web/–g'
+36 verbose stack     at Error (native)
+37 verbose cwd /home/r063r/proyectosdjango/gperfil/gperfil/ioteca_web
+38 error Linux 4.4.0-21-generic
+39 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "–g" "gulp"
+40 error node v4.6.2
+41 error npm  v2.15.11
+42 error path /home/r063r/proyectosdjango/gperfil/gperfil/ioteca_web/–g
+43 error code ENOENT
+44 error errno -2
+45 error syscall open
+46 error enoent ENOENT: no such file or directory, open '/home/r063r/proyectosdjango/gperfil/gperfil/ioteca_web/–g'
+46 error enoent This is most likely not a problem with npm itself
+46 error enoent and is related to npm not being able to find a file.
+47 verbose exit [ -2, true ]

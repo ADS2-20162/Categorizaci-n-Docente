@@ -4,7 +4,7 @@ var rlegUrl =baseUrl +'/api/rleg/';
 var cgenUrl =baseUrl +'/api/cgen/';
 var catUrl =baseUrl +'/api/cat/';
 var gperfilUrl = baseUrl+'/api/gperfil/';
-var gdataUrl = baseUrl+'/api/gdata';
+var gdataUrl = baseUrl+'/api/gdata/';
 
 var client_id = 'YX73ry9Xck7OvBz15VELaBazyNYAdulgtOhADJJc';
 var client_secret = 'tcLfskNxdkvO7ENxFGM3JGQ0dmc7vWwatHNe5Tl9fX4CDFRlsmN2vrcphlHSPMuZKydSVB8nupZuEWAUOJmpa4W3s0akd2faiVsnUe4VYbdgdH5MlbJdSQtmQczXO29H';

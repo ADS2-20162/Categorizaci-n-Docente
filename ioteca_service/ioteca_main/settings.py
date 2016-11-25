@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django.contrib.admindocs',
     'rest_framework',
     'corsheaders',
@@ -58,7 +57,6 @@ INSTALLED_APPS = [
     'ioteca_service_apps.rleg',
     'ioteca_service_apps.cgen',
     'ioteca_service_apps.gdata',
-    'django_extensions',
 
 ]
 
@@ -151,7 +149,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'auths.User'  # added
 
@@ -162,8 +160,8 @@ CORS_ORIGIN_WHITELIST = ('127.0.0.1:6000', 'localhost:6000')
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(os.path.dirname(
-    os.path.dirname(__file__)), 'static', 'media')
+# MEDIA_ROOT = os.path.join(os.path.dirname(
+#     os.path.dirname(__file__)), 'static', 'media')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -178,7 +176,8 @@ STATICFILES_DIRS = (
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.ext.rest_framework.OAuth2Authentication',
-    )
+    ),
+
 }
 
 import datetime

@@ -1,0 +1,75 @@
+
+<md-card ng-controller="ResumenCtrl">
+  <md-card-title>
+        <md-card-title-text>
+            <span class="md-subhead">Resumen General</span>
+        </md-card-title-text>
+    </md-card-title> 
+    <md-divider></md-divider>
+    <md-card-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+      <md-tab label="Resumen">
+        <md-content class="md-padding">
+          <div id="legajo">
+            <md-table-container>
+                <table class="table-material">
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column class="md-padding" align="left">Areas \ Perfiles</th>
+                            <th md-column ng-repeat="p in listaP" class="md-padding">{{p.nombre}}</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="a in listaA">
+                            <td class="md-padding" md-cell>{{ a.nombre }}</td>
+                            <td align="center" ng-repeat="p in listaP">{{p.id}}{{a.id}}</td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr ng-repeat="ap in lista_re">
+                            <th colspan="5" align="center">Total del Ponderado = 
+                                <md-button class="md-raised ">
+                                <span class="ng-binding ng-scope">{{suma}}</span>
+                                </md-button> 
+                                <md-button class="md-raised ">
+                                <span class="ng-binding ng-scope">{{ap.estado}}</span>
+                                </md-button> 
+                                <md-button class="md-raised ">
+                                <span class="ng-binding ng-scope">{{ap.estado_data}}</span>
+                                </md-button> 
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </md-table-container>
+          </div>
+        </md-content>
+      </md-tab>
+      <md-tab label="Grafico">
+        <md-content class="md-padding">
+            {# <div ng-if="DatosNodo.eje">
+                <h1 class="md-title">Reporte: Informe de {{DatosNodo.nombre}} </h1>
+                <p>{{DatosNodo.ejes[0].nombre}}</p>
+                <hr>
+                <div class="grafica">
+                    <div id="chart"></div>
+                </div>
+                <p>{{DatosNodo.ejes[1].nombre}}</p>
+                <hr>
+                <div class="grafica">
+                    <div id="chart2"></div>
+                </div>
+            </div>
+            <div ng-if="DatosNodo.tipo_test">
+                <h1 class="md-title">Reporte: Informe de {{DatosNodo.parent.nombre}}</h1><span>{{DatosNodo.nombre}}</span>
+                <hr>
+                <div class="grafica">
+                    <div id="chart"></div>
+                </div>
+            </div> #}
+        </md-content>
+      </md-tab>
+    </md-tabs>
+      
+    </md-card-content>
+</md-card>

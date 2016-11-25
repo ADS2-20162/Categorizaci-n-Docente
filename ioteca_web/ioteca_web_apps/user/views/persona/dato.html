@@ -19,8 +19,9 @@
                     </div>
 
                     <div class="card__meta" ng-repeat="e in listaPhotos">
-                        <a class="a-update" >ACTUALIZADO</a>
-                        <time>{{e.updated_at | date:'MM/dd/yyyy'}}</time>
+                        <a class="a-update" >ACTUALIZADO</a> 
+                        <!-- <time ng-bind="prueba(e.updated_at)">{{dato | date:'medium'}}</time> -->
+                        <time >{{e.updated_at | date:'MM/dd/yyyy'}}</time>
                     </div>         
                 </div>                
             </div>

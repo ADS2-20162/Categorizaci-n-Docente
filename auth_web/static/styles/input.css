@@ -1,0 +1,16 @@
+.inputtexbox
+{
+    /*width: 60px;*/
+      font-size: 13px;
+      font-family: Arial;
+      padding-left: 7px; /* espacio para izquierda*/
+      /*padding-right: 0px;*/
+      padding-top: 4px; /* espacio para arriba*/
+      padding-bottom: 4px; /* espacio para abajo*/
+      border-radius: 10px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -o-border-radius: 4px;
+      color: #2E3133;
+      border: 1px solid #cdcdcd;
+      }

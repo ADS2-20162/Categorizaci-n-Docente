@@ -9,10 +9,11 @@ class AreaPerfilSerializer(serializers.ModelSerializer):
     # area = serializers.CharField(source='area.nombre')
     perfil = serializers.SlugRelatedField(
         slug_field='nombre', queryset=Perfil.objects.all())
+    perfil_id = serializers.CharField(source="perfil.id", read_only=True)
     area = serializers.SlugRelatedField(
         slug_field='nombre', queryset=Area.objects.all())
 
     class Meta:
         model = AreaPerfil
         fields = ('id', 'perfil', 'area', 'ponderado',
-                  'created_at', 'updated_at')
+                  'created_at', 'updated_at', 'perfil_id')

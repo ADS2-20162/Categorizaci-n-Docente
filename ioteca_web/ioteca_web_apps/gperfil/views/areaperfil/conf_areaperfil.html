@@ -27,7 +27,7 @@
 
                     <div layout="row" layout-xs="column" layout-align-xs="start center">
                         <md-card class="page" flex="50">
-                        <table >
+                        <table class="table-material" >
                             <thead>
                                 <tr>
                                     <th colspan="3">Areas Disponibles</th>
@@ -50,11 +50,15 @@
                                         <div ng-messages="ponderado.$error"></div>
                                     </td>
 
-                                    <td>
+                                    <td width="150">
+                                    <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="delete(d)">
+                                        <md-tooltip md-autohide>Eliminar</md-tooltip>
+                                        <ng-md-icon icon="delete" aria-label="delete"></ng-md-icon>
+                                    </md-button>
                                     <md-button type="reset" class="md-icon-button" aria-label="Eat cake"
                                     ng-click="guardarAreaPerfil(d.nombre,
                                     perfil.nombre, ponderado)">
-                                    <ng-md-icon size="20" icon="send" ></ng-md-icon>
+                                    <ng-md-icon icon="send" ></ng-md-icon>
                                     <md-tooltip md-autohide>Enviar</md-tooltip>
                                     </md-button>
                                     </td>
@@ -65,14 +69,14 @@
                         </md-card>
                         
                         <md-card class="page" flex="50">
-                        <table>
+                        <table class="itable">
                             <thead>
                                 <tr align="center">
                                     <th colspan="7">Areas activas del perfil
                                         {{perfil.nombre}}</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="itbody">
                                 <tr ng-repeat="d in lista_ap">
                                     <td class="md-padding" width="50">{{$index +1}}</td>
                                     <td width="250">{{d.area}}</td>
@@ -82,21 +86,21 @@
                                     </td>
                                     <!-- <td></td> -->
                                     <td width="30">
-                                        <a class="md-icon-button md-primary" ng-click="showInput(d,'MyText'+d.id)">
+                                        <a class="md-icon-button icon-edit" ng-click="showInput(d,'MyText'+d.id)">
                                             <md-tooltip md-autohide>Editar</md-tooltip>
-                                            <ng-md-icon size="18" icon="edit" aria-label="Edit" ></ng-md-icon>
+                                            <ng-md-icon icon="edit" aria-label="Edit" ></ng-md-icon>
                                         </a> 
                                     </td>
                                     <td width="30"> 
-                                        <a class="md-icon-button md-primary" aria-label="delete" ng-click="eliminarAPerfil(d)">
+                                        <a class="md-icon-button icon-delete" aria-label="delete" ng-click="eliminarAPerfil(d)">
                                             <md-tooltip md-autohide>Quitar</md-tooltip>
-                                            <ng-md-icon size="18" icon="clear" aria-label="delete" ></ng-md-icon>
+                                            <ng-md-icon icon="clear" aria-label="delete" ></ng-md-icon>
                                         </a>
                                     </td>
                                     <td width="30">
-                                        <a class="md-icon-button md-primary" title="Configurar {{d.area}}" ui-sref="gperfil.confsubareaperfil({sap_id:d.id})">
+                                        <a class="md-icon-button icon-settings" title="Configurar {{d.area}}" ui-sref="gperfil.confsubareaperfil({sap_id:d.id})">
                                             <md-tooltip md-autohide>Configurar</md-tooltip>
-                                            <ng-md-icon size="18" icon="settings" aria-label="Conf"></ng-md-icon>
+                                            <ng-md-icon icon="settings" aria-label="Conf"></ng-md-icon>
                                         </a >
                                     </td>
                                 </tr>
@@ -119,7 +123,7 @@
 
                     <div layout="row" layout-xs="column" layout-align-xs="start center">
                         <md-card class="page" flex="50">
-                        <table >
+                        <table class="table-material">
                             <thead>
                                 <tr>
                                     <th colspan="2">Dimensiones Disponibles</th>
@@ -131,16 +135,20 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody >
                                 <tr ng-repeat="d in listaD">
                                     <td class="md-padding" >{{ $index + 1 }}</td>
                                     <td>{{ d.nombre }}</td>
                             
-                                    <td>
+                                    <td width="150">
+                                    <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="deleteDim(d)">
+                                        <md-tooltip md-autohide>Eliminar</md-tooltip>
+                                        <ng-md-icon icon="delete" aria-label="delete"></ng-md-icon>
+                                    </md-button>
                                     <md-button  class="md-icon-button" aria-label="Eat cake" ng-click="guardarDimensionPerfil(d.nombre,
                                     perfil.nombre)">
-                                    <ng-md-icon size="20" icon="send"></ng-md-icon>
-                                    <md-tooltip md-autohide>Enviar</md-tooltip>
+                                    <ng-md-icon icon="send"></ng-md-icon>
+                                    <md-tooltip  md-autohide>Enviar</md-tooltip>
                                     </md-button>
                                     </td>
                         
@@ -150,27 +158,27 @@
                         </md-card>
                         
                         <md-card class="page" flex="50">
-                        <table>
+                        <table class="itable">
                             <thead>
                                 <tr>
                                     <th colspan="5">Dimensiones activas del perfil
                                         {{perfil.nombre}}</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="itbody">
                                 <tr ng-repeat="d in lista_dp">
                                     <td class="md-padding">{{$index +1}}</td>
                                     <td>{{d.dimension}}</td>
                                     <td width="50">
-                                        <a class="md-icon-button" aria-label="delete" ng-click="eliminarDPerfil(d)">
+                                        <a class="md-icon-button icon-delete" aria-label="delete" ng-click="eliminarDPerfil(d)">
                                             <md-tooltip md-autohide>Quitar {{ d.dimension }}</md-tooltip>
-                                            <ng-md-icon size="18" icon="clear" aria-label="delete" size="30"></ng-md-icon>
+                                            <ng-md-icon icon="clear" aria-label="delete"></ng-md-icon>
                                         </a>
                                     </td>
                                     <td width="50">
-                                        <a class="md-icon-button" title="Configurar {{d.dimension}}" ui-sref="gperfil.confescaladim({dp_id:d.id})">
+                                        <a class="md-icon-button icon-settings" title="Configurar {{d.dimension}}" ui-sref="gperfil.confescaladim({dp_id:d.id})">
                                             <md-tooltip md-autohide>Configurar {{ d.dimension }}</md-tooltip>
-                                            <ng-md-icon size="18" icon="settings" aria-label="Edit" size="30"></ng-md-icon>
+                                            <ng-md-icon icon="settings" aria-label="Edit"></ng-md-icon>
                                         </a>
                                     </td>
                                         

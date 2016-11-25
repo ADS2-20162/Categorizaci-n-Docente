@@ -1,8 +1,7 @@
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework import serializers, viewsets
 from rest_framework.response import Response
-from django.db.models import Q
-from operator import __or__ as OR
-from functools import reduce
+from rest_framework import status
 from ..serializers.Adjunto import AdjuntoSerializer
 from ..models.Adjunto import Adjunto
 

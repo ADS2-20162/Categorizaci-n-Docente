@@ -16,49 +16,49 @@
 </div>
 
 <md-divider></md-divider>
-<md-content>
+<md-content style="">
     <md-tabs md-dynamic-height md-border-bottom >
       <md-tab  ng-repeat="e in listaA" label="{{e.area}}" ng-click="loadSubarea(e.id)">
       <md-content class="md-padding">
         <div id="legajo">
             <md-table-container>
-                <table md-table data-md-row-select="" mi-table>
+                <table class="itable">
                     <thead md-head>
                         <tr md-row>
-                            <th md-column class="md-padding" width="10">N°</th>
+                            <th md-column class="md-padding" width="10">N</th>
                             <th md-column width="150">Sub Area</th>
                             <th md-column width="300">Competencias</th>
                             <th md-column ng-repeat="l in listaDim" >
                                 <span>{{l.nombre}}</span>
                                 <md-divider></md-divider>
-                                <span layout="row" layout-align="space-around center">
-                                    <span ng-repeat="li in listaD">
-                                        {{li.escala}}
+                                <span layout="row" layout-align="space-around center" ng-repeat="m in l.dimperfils">
+                                    <span ng-repeat="es in m.escsdims">
+                                        {{es.escala}}
                                     </span>
                                 </span>
                             </th>
+                            <th>Puntaje</th>
                         </tr>
                     </thead>
-                    <tbody md-body>
+                    <tbody class="itbody">
                         <tr md-row ng-repeat="j in listaC">
                             <td class="md-padding" md-cell>{{ $index +1 }}</td>
                             <td md-cell> {{j.subarea_nombre}}</td>
                             <td md-cell>{{j.competencia}}</td>
-                            <td md-cell align="center" >
-                            <span layout="row" layout-align="space-around center">
-                                <span ng-repeat="li in listaD" layout="row">
-                                  <md-checkbox ng-model="data.cb1" aria-label="Checkbox 1" ng-change="changeEstado(li.escala, j.competencia)">
+                            <td md-cell align="center" ng-repeat="l in listaDim">
+                            <span layout="row" layout-align="space-around center" ng-repeat="m in l.dimperfils">
+                                <span ng-repeat="es in m.escsdims" layout="row" layout-align="space-around center">
+                                  <md-checkbox ng-click="validar(es.id, j.id)" aria-label=" Checkbox 1" ng-model="check" class="md-primary">
                                   </md-checkbox>
-                                     <choose-file class="md-block">
-                                        <input id="fileInput" type="file" class="ng-hide" uploader-model="file">
-                                            <md-button id="uploadButton" class="md-icon-button md-primary">
-                                                <ng-md-icon size ="25" icon="unarchive" aria-label="attach_file"></ng-md-icon>
-                                                <md-tooltip md-autohide>Adjuntar</md-tooltip>
-                                            </md-button>
-                                    </choose-file>
+                                  <!-- ng-change="changeSave(li.id, j.id)"  <-->
+                                  <md-button class="md-icon-button md-primary" ng-show="check===true">
+                                      <ng-md-icon size ="25" icon="settings" aria-label="attach_file" ng-click="adjuntar(es.id, j.id)"></ng-md-icon>
+                                      <md-tooltip md-autohide>Adjuntar</md-tooltip>
+                                  </md-button>
                                 </span>
                             </span>
                             </td>
+                            <td align="center">{{ptj}}</td>
                         </tr>
                     </tbody>
                 </table>

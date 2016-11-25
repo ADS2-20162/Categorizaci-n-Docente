@@ -9,8 +9,9 @@ from django.dispatch import receiver
 
 
 def upload_image(instance, filename):
-    extension = filename.split(".")[-1]
-    return("data_imagen/{0}.{1}".format(uuid.uuid4(), extension))
+    # extension = filename.split(".")[-1]
+    # return("data_imagen/{0}.{1}".format(uuid.uuid4(), extension))
+    return("data_imagen/{0}".format(filename))
 
 def upload_file(instance, filename):
     return("data_archivo/{0}".format(filename))
@@ -19,40 +20,29 @@ class ElementoCampoRegistro(models.Model):
 
     elemento_campo = models.ForeignKey(ElementoCampo) #related_name
     persona = models.ForeignKey(Persona, null=True, blank=True,related_name='elementocamporegistro')
-    # data = models.CharField(max_length=100)
     d_string = models.CharField("Dato String",max_length=100, null=True, blank=True) #Data String
+    d_select = models.CharField("Dato Select",max_length=100, null=True, blank=True) #Data String
+    d_opcion = models.CharField("Dato Select Opción",max_length=100, null=True, blank=True) #Data String
     d_texto = models.TextField("Dato Descripción",null=True,blank=True) #Data texto
     d_number = models.IntegerField("Dato Número",null=True, blank=True) #Data numero
     d_decimal = models.DecimalField("Dato Decimal",max_digits=9,decimal_places=2,null=True, blank=True) # Data decimal
-    d_fecha = models.DateField("Dato Fecha", null=True, blank=True) #Data fecha
+    d_fecha = models.IntegerField("Dato Fecha", null=True, blank=True) #Data fecha
     d_imagen = models.ImageField("Dato Imagen", upload_to=upload_image,null=True, blank=True) # Data imagen
     d_archivo = models.FileField("Dato Archivo", upload_to=upload_file,null=True, blank=True) # Data archivo
     d_url = models.URLField("Dato URL",max_length=1024,null=True, blank=True) #Data url
-
-    # d_fecha_hora = models.DateTimeField(null=True,blank=True)
-    # d_opciones = models.ForeignKey() # Data opciones
-
 
     class Meta:
         verbose_name = "Elemento Campo Registro"
         verbose_name_plural = "Elemento Campo de Registros"
 
-    def save(self,*args,**kwargs):
-        if self.d_imagen:
-            extension = filename.split(".")[-1]
-            if extension == 'JPG' or 'jpg' or 'png' or 'PNG':
-                self.d_imagen = self.d_imagen
-        elif self.d_archivo:
-            extension = filename.split(".")[-1]
-            if extension == 'pdf' or 'PDF':
-                self.d_imagen = self.d_imagen
-
-        super(ElementoCampoRegistro,self).save(*args,**kwargs)
-
     def __str__(self):
 
         if self.d_string:
             return("{0}: {1}".format(self.elemento_campo.nombre,self.d_string))
+        elif self.d_select:
+            return("{0}: {1}".format(self.elemento_campo.nombre,self.d_select))
+        elif self.d_opcion:
+            return("{0}: {1}".format(self.elemento_campo.nombre,self.d_opcion))
         elif self.d_imagen:
             a = self.d_imagen.url
             x = a.split("/")

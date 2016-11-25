@@ -5,7 +5,7 @@ from ioteca_service_apps.gperfil.models.CompetenciaPerfil import CompetenciaPerf
 
 class Registro(models.Model):
 
-    estado_data = models.CharField(max_length=50)
+    estado_data = models.IntegerField()
     escaladimension = models.ForeignKey(EscalaDimension)
     competenciaperfil = models.ForeignKey(CompetenciaPerfil)
     estado = models.BooleanField(default=False)

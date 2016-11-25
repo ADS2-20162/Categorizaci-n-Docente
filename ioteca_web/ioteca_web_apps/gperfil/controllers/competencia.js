@@ -102,6 +102,7 @@ app
             });
         }
     };
+    
 
     $scope.delete = function(d) {
     // Appending dialog to document.body to cover sidenav in docs app

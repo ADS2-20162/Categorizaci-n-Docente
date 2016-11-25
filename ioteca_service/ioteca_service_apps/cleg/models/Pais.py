@@ -1,9 +1,11 @@
 from django.db import models
 from .CampoPredefinido import CampoPredefinido
+from django_countries.fields import CountryField
 
 class Pais(models.Model):
 
-    nombre = models.CharField(max_length=60)
+    code = CountryField()
+    nombre = models.CharField('Nombre',max_length=30,null=True, blank=True)
     estado =  models.BooleanField(default=True)
     campo_predefinido = models.ForeignKey(CampoPredefinido)
 
@@ -11,5 +13,9 @@ class Pais(models.Model):
         verbose_name = "Pais"
         verbose_name_plural = "Paises"
 
+    def save(self,*args,**kwargs):
+        self.nombre = self.code.name
+        super(Pais,self).save(*args,**kwargs)
+
     def __str__(self):
-        return u'%s' % self.nombre
+        return('{0}'.format(self.nombre))

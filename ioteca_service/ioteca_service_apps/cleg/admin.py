@@ -21,22 +21,21 @@ from .models.TipoCampo import TipoCampo
 from .models.Campo import Campo
 from .models.PropiedadForm import PropiedadForm
 from .models.CampoPropiedadForm import CampoPropiedadForm
-from .models.DataPropiedad import DataPropiedad
 from .models.CampoPredefinido import CampoPredefinido
 from .models.DataCampo import DataCampo
+from .models.DataCampoOpcion import DataCampoOpcion
 from .models.RegimenPension import RegimenPension
-
 
 # Register your models here.
 
 admin.site.register(Elemento)
 admin.site.register(DataCampo)
+admin.site.register(DataCampoOpcion)
 
 admin.site.register(TipoCampo)
 admin.site.register(Campo)
 admin.site.register(PropiedadForm)
 admin.site.register(CampoPropiedadForm)
-admin.site.register(DataPropiedad)
 
 admin.site.register(CampoPredefinido)
 admin.site.register(TipoInstitucion)

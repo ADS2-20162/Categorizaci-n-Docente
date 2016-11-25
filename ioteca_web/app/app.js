@@ -13,7 +13,9 @@ var app = angular.module("app", [
     'ngDevhres',
     'ngMessages',
     'ngFileUpload',
-    
+    'angular-moment',
+    // 'lfNgMdFileInput',
+    'angular-toArrayFilter'
 ]);
 
 
@@ -65,4 +67,11 @@ app
         $mdThemingProvider.setDefaultTheme('default');
         $mdThemingProvider.alwaysWatchTheme(true);
 
+    });
+
+app 
+    .config(function($mdDateLocaleProvider) {
+        $mdDateLocaleProvider.formatDate = function(date) {
+            return moment(date).format('DD/MM/YYYY');
+        };
     });

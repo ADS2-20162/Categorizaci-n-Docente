@@ -7,7 +7,9 @@ var rlegUrl =baseUrl +'/api/rleg/';
 var cgenUrl =baseUrl +'/api/cgen/';
 var catUrl =baseUrl +'/api/cat/';
 var userUrl = baseUrl+'/api/cleg/';
-var gdataUrl = baseUrl+'/api/gdata';
+var gdataUrl = baseUrl+'/api/gdata/';
+var resumenUrl = baseUrl+'/api/gperfil/';
+
 
 var config = {
     
@@ -20,6 +22,7 @@ var config = {
     cgenUrl: cgenUrl,
     catUrl: catUrl,
     gdataUrl: gdataUrl,
+    resumenUrl: resumenUrl,
 
 };
 

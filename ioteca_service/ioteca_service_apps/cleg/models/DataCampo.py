@@ -12,4 +12,4 @@ class DataCampo(models.Model):
         verbose_name_plural = "Data Campos"
 
     def __str__(self):
-        return("{0}: {1}".format(self.nombre,self.elemento_campo.nombre))
+        return u'%s' % self.nombre

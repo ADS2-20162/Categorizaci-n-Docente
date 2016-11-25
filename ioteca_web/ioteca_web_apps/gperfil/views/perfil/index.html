@@ -42,21 +42,6 @@
                         </md-card-title-media>
                         </md-card-title>
 
-                        <!-- <div  ng-show="d.isHover" align="center">
-                        <a ui-sref="gperfil.confareaperfil({perfil_id:d.id})">
-                            <ng-md-icon icon="settings" aria-label="conf" size="15"></ng-md-icon>
-                            <md-tooltip md-autohide>Configurar</md-tooltip>
-                        </a>
-                        <a>
-                            <ng-md-icon icon="delete" aria-label="delete" size="15" ng-click="delete(d)"></ng-md-icon>
-                            <md-tooltip md-autohide>Eliminar</md-tooltip>
-                        </a> 
-                        <a>
-                            <ng-md-icon icon="send" aria-label="delete" size="15"></ng-md-icon>
-                            <md-tooltip md-autohide>detalle</md-tooltip>
-                        </a>   
-                        </div> -->
-
                         <md-card-actions layout="row" layout-align="center" >
                         <a class="md-button" ui-sref="gperfil.confareaperfil({perfil_id:d.id})">
                             <md-tooltip md-autohide>Configurar</md-tooltip>{{d.nombre}}</a>
@@ -65,27 +50,6 @@
 
                   </md-card>
               </div>
-               <!-- fin contenido -->
-               <!--  <md-table-pagination>
-                    <table>
-                        <tfoot>
-                            <tr>
-                                <td colspan="10">
-                                    <mi-pagination page="options.page" pages="options.pages" next="options.next" previous="options.previous" rango="options.range" activado="myactive" accion="list(params)" query="query">
-                                    </mi-pagination>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </md-table-pagination>
-            <app-pagination ng-if="options.pages>0" per="per"
-                            page="options.page"
-                            format="'jumping'"
-                            display="4"
-                            rango="options.range"
-                            accion="list(params)"
-                            pages="options.pages"  query="query"
-            ></app-pagination> -->
             </md-card>
         </div>
     </md-content>

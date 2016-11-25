@@ -4,7 +4,7 @@
             <md-card ng-controller="EscalaDimensionCtrl">
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">Catalogo de perfiles</span>
+                        <!-- <span class="md-headline">Catalogo de perfiles</span> -->
                         <span class="md-subhead">Configurar DimensionPerfil</span>
                     </md-card-title-text>
                     <md-button class="md-raised md-primary" ng-click="goBack()">
@@ -17,14 +17,14 @@
                     DimensionPerfil: 
                     <span >
                             <ng-md-icon icon="book" aria-label="title"></ng-md-icon>
-                            <strong title="Dimension del perfil {{dimperfil.perfil}}"> {{dimperfil.dimension}}</strong>
+                            <strong title="Dimension del perfil"> {{dimperfil.dimension}}</strong>
                     </span>
                     <md-divider></md-divider>
                     <br>
 
                     <div layout="row">
                         <md-card class="page" flex="50">
-                        <table >
+                        <table class="table-material">
                             <thead>
                                 <tr>
                                     <th colspan="3">Escalas disponibles</th>
@@ -45,7 +45,11 @@
                                         <div ng-messages="puntaje.$error"></div>
                                     </td>
 
-                                    <td >
+                                    <td width="150">
+                                    <md-button class="md-icon-button md-primary" aria-label="delete" ng-click="delete(d)">
+                                        <md-tooltip md-autohide>Eliminar</md-tooltip>
+                                        <ng-md-icon icon="delete" aria-label="delete"></ng-md-icon>
+                                    </md-button>
                                     <md-button  class="md-icon-button" aria-label="Eat cake" ng-click="guardarEscalaD(dimperfil.id, d.nombre, puntaje)">
                                     <ng-md-icon icon="send" ></ng-md-icon>
                                     <md-tooltip md-autohide>Enviar</md-tooltip>
@@ -58,13 +62,13 @@
                         </md-card>
                         
                         <md-card class="page" flex="50">
-                        <table >
+                        <table class="itable">
                             <thead>
                                 <tr>
                                     <th colspan="4">Escalas del Dimension {{dimperfil.dimension}}</th>
                                 </tr>
                             </thead>    
-                            <tbody>
+                            <tbody class="itbody">
                                 <tr ng-repeat="d in lista_edp">
                                     <td width="20" class="md-padding">{{$index +1}}</td>
                                     <!-- <td>{{d.areaperfil2}}</td> -->
@@ -75,15 +79,15 @@
                                     <div ng-messages="d.puntaje.$error"></div>
                                     </td>
                                     <td width="50">
-                                        <a class="md-icon-button" ng-click="showInput(d,'MyText'+d.id)">
+                                        <a class="md-icon-button icon-edit" ng-click="showInput(d,'MyText'+d.id)">
                                             <md-tooltip md-autohide>Editar </md-tooltip>
-                                            <ng-md-icon size="20" icon="edit" aria-label="Edit" ></ng-md-icon>
+                                            <ng-md-icon icon="edit" aria-label="Edit" ></ng-md-icon>
                                         </a>  
                                     </td>
                                     <td width="50">
-                                        <a class="md-icon-button" aria-label="delete" ng-click="delete(d)">
+                                        <a class="md-icon-button icon-delete" aria-label="delete" ng-click="deleteEscDim(d)">
                                             <md-tooltip md-autohide>Quitar</md-tooltip>
-                                            <ng-md-icon size="20" icon="clear" aria-label="delete" ></ng-md-icon>
+                                            <ng-md-icon icon="clear" aria-label="delete" ></ng-md-icon>
                                         </a>
                                     </td>
                                 </tr>
@@ -91,7 +95,18 @@
                         </table>
                         </md-card>
                     </div>
-                </div>   
+                </div> 
+                <md-card>
+
+                <div layout="row" >
+                    <!-- <span ng-repeat="l in listDim">
+                    <a class="md-button" >{{l.nombre}}</a>
+                    
+                    </span> -->
+                    <md-slider flex class="md-primary" md-discrete ng-model="rating3" step="10" min="0" max="100" aria-label="rating">
+                    </md-slider>
+                </div>
+                </md-card>  
             </md-card>
         </div>
     </md-content>

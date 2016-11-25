@@ -1,2 +1,1 @@
-€}q(Uioteca_service_apps.auths.enums]q(UWEBqUFUMUGENRE_CHOICESqUOTHERqUMODULE_CHOICESqUHIERARCHY_TYPE_CHOICESqUADMISIONqUBACKENDq	eUioteca_main.urls]q
-UurlpatternsqaU,ioteca_service_apps.auths.UserHierarchyGroup]qUUserHierarchyGroupqau.
+€}q(Uioteca_main.urls]qUurlpatternsqaU/ioteca_service_apps.cleg.models.DataCampoOpcion]qUDataCampoOpcionqaU4ioteca_service_apps.cleg.serializers.DataCampoOpcion]qUDataCampoOpcionSerializerqaU.ioteca_service_apps.cleg.views.DataCampoOpcion]qUDataCampoOpcionViewSetq	au.

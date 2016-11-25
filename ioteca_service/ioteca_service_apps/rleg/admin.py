@@ -6,6 +6,6 @@ from .models.ElementoCampoRegistro import ElementoCampoRegistro
 
 # Register your models here.
 admin.site.register(ElementoCampo)
-admin.site.register(ElementoCampoRegistro)
 admin.site.register(ElementoCampoPredefinido)
+admin.site.register(ElementoCampoRegistro)
 admin.site.register(ElementoCampoPredefinidoRegistro)

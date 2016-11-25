@@ -1,10 +1,8 @@
-# coding=utf-8
 """
 Enums de la app
 """
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import capfirst
-
 
 WEB = 'WEB'
 ADMISION = 'ADMISION'

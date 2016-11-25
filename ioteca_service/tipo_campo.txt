@@ -1,0 +1,30 @@
+TipoCampo
+
+Nombre:
+
+    CAMPOS
+
+(TipoCampo)   string        ==> Línea de Texto
+(TipoCampo)   select        ==> Opción
+(TipoCampo)   select_option ==> Opción de Selección
+(TipoCampo)   text          ==> Texto Grande
+(TipoCampo)   url           ==> URL
+(TipoCampo)   number        ==> Número Entero
+(TipoCampo)   decimal       ==> Número Flotante
+(TipoCampo)   date          ==> Fecha
+(TipoCampo)   image         ==> Imagen
+(TipoCampo)   file          ==> Archivo
+
+
+    CAMPOS PREDEFINIDOS
+
+(TipoCampo)   regimen_pension         ==> Régimen Pensión
+(TipoCampo)   categoria_academica     ==> Categoría Académica
+(TipoCampo)   cargo_ocupado           ==> Cargo Ocupado
+(TipoCampo)   intitucion              ==> Institución
+(TipoCampo)   idioma                  ==> Idioma
+(TipoCampo)   grado_academico         ==> Grado Académico
+(TipoCampo)   especialidad            ==> Especialidad
+(TipoCampo)   proceso_grado_academico ==> Proceso Grado Académico
+(TipoCampo)   codigo_postal           ==> Código Postal
+(TipoCampo)   pais                    ==> País

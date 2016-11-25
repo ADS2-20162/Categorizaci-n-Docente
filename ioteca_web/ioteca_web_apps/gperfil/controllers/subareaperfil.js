@@ -15,13 +15,27 @@ app
 
     var perfil_id = $stateParams.perfil_id; 
     var sap_id = $stateParams.sap_id; 
-    $scope.aperfil = API.AreaPerfil.get({id:sap_id});
 
+    //================================================================
+    //lista Para el filtrar Subareas por perfil
+    //================================================================
+    function llamar() {
+     API.AreaPerfil.get({id:sap_id}).$promise.then(function (r) {
+         $scope.aperfil = r;
+        API.SubareaPerfil.list({perfil:$scope.aperfil.perfil_id}).$promise.then(function(r) {
+            $scope.lista_sp = r;
+            listSubareas();
+        });
+     });
+    }
+    llamar();
+
+    //================================================================
     //lista Subareas
+    //================================================================
     function listSubareas() {
         API.Subarea.list(params).$promise.then(function(r) {
             $scope.listaSA = r.results;
-            $scope.options = r.options;
             compare();
         }, function(err) {
             console.log("Err " + err);
@@ -29,7 +43,9 @@ app
     }
     listSubareas();
 
+    //================================================================
     //para agreagr nuevas subareas
+    //================================================================
     $scope.new = function(evt) {
         $scope.subarea.id = null;
         $scope.subarea = {};
@@ -45,95 +61,59 @@ app
         }, function() {});
     };
 
-    //function (elemento, venctor)
-    //funcion para buscar un elemento en la lista
-    //para no guardar un nombre del SubArea repetidas veces..
-    function buscarSA(a, v){
-            for (var i = 0; i < v.length; i++) {
-                if (a == v[i]['nombre']) {
-                    return v[i]['nombre'];
-                }  
-            }
-    }
-
-
+    //================================================================
     //para guardar los Suabreas
+    //================================================================
     $scope.save = function(nombre) {
             $scope.subarea = {};
             $scope.subarea = {'nombre': nombre};
-            if (buscarSA(nombre, $scope.listaSA) == nombre) {
-                toastr.error('El SubArea ya existe');
-            } else {
             API.Subarea.save($scope.subarea).$promise.then(function(r) {
                 console.log("r: " + r);
                 toastr.success('Se agrego correctamente');
                 $mdDialog.hide();
             }, function(err) {
                 console.log("Err " + err);
-            });                
-            }
+            }); 
     };
 
+    //================================================================
     //funcion para regresar al anterior Windows
+    //================================================================
     $scope.goBack = function() {
     window.history.back();
     };
 
-    //listar las Subareas que fueron añadidas aun 
-    //perfil
-    function listaSPerfil() {
-        API.SubareaPerfil.list().$promise.then(function(r) {
-            $scope.lista_sp = r;
-        });
-    }
-    listaSPerfil(); 
-
-    //listar las Subareas que fueron añadidas aun 
-    //perfil
+    //================================================================
+    //listar las Subareas que fueron añadidas aun perfil
+    //================================================================
     function listaSubareaPerfil() {
         API.SubareaPerfil.list({areaperfil:sap_id}).$promise.then(function(r) {
-            console.log(r);
             $scope.lista_sap = r;
             listSubareas();
-        }, function(err) {
-           console.log("Error en lista_sap " + err);
         });
     }
-    listaSubareaPerfil();         
+    listaSubareaPerfil(); 
 
-    //function (elemento, venctor)
-    //funcion para buscar un elemento en la lista
-    //para no guardar Subarea repetidas veces..
-    function compararS(a, v){
-        // function (elemento, venctor)
-            for (var i = 0; i < v.length; i++) {
-                if (a == v[i]['subarea']) {
-                    return v[i]['subarea'];
-                }  
-            }
-    }
 
-    //Agregar una sub area  aun perfil comparando con la funcion compararS()
-    //para no guardar repetidas veces las subareas.
+    //================================================================
+    //Agregar una sub area  aun perfil
+    //================================================================
     $scope.guardarsap = function (areaperfil,subarea){
         $scope.subareaperfil = {};
         $scope.subareaperfil = { 'areaperfil': areaperfil, "subarea":subarea};
-        if (compararS(subarea, $scope.lista_sap) == subarea) {
-            console.log("SubareaPerfil "+subarea+" ya existe");
-            toastr.error('SubareaPerfil ya existe', 'Error');
-        } else {
             API.SubareaPerfil.save($scope.subareaperfil).$promise.then(function(r) {
-                console.log("r: " + r);
-                toastr.success('Se agrego correctamente');
+                toastr.success('Se agrego correctamente Sub Area');
+                llamar();
                 listSubareas();
                 listaSubareaPerfil();
             }, function(err) {
                 console.log("Err " + err  );
-            });            
-        }
+            }); 
      }; 
 
+    //================================================================
     //para quitar de la lista las subareas agregadas a un perfil
+    //================================================================
     $rootScope.delete = function(d) {
         var confirm = $mdDialog.confirm()
           .title('Desea Eliminar Area?')
@@ -168,11 +148,13 @@ app
     };
     $scope.list(params);
 
+    //================================================================
     //funcion filter start
+    //================================================================
     function compare(){
-        for (var j = 0; j < $scope.lista_sap.length ; j++) {
+        for (var j = 0; j < $scope.lista_sp.length ; j++) {
             for (var i = 0; i < $scope.listaSA.length ; i++) {
-                if($scope.listaSA[i].nombre===$scope.lista_sap[j].subarea){
+                if($scope.listaSA[i].nombre===$scope.lista_sp[j].subarea){
                     $scope.listaSA.splice(i,1);
                 }
             }                 

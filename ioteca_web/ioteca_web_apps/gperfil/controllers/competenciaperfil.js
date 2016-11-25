@@ -3,7 +3,24 @@ app
     .controller("ConfCompetenciaPerfilCtrl", function($scope, API, $window, $stateParams, $mdDialog, toastr, $timeout){
         var url = 'ioteca_web_apps/gperfil/views';
         var sap_id = $stateParams.sap_id;
-        $scope.saperfil = API.SubareaPerfil.get({id:sap_id});
+        var areaperfil = $stateParams.areaperfil;
+        var subarea_id = $stateParams.subarea_id;
+        $scope.lista_CP = [];
+        $scope.saperfil = [];
+
+        //================================================================
+        function llamar(){
+            API.SubareaPerfil.get({id:sap_id}).$promise.then(function(r){
+            $scope.saperfil = r;
+                API.CompetenciaPerfil.list({'aperfil':$scope.saperfil.areaperfil, 'subarea':$scope.saperfil.subarea_id}).$promise.then(function(r){
+                    $scope.lista_CP = r;
+                    $scope.suma = contarId($scope.lista_CP);
+                    $scope.resta = 100 - $scope.suma;  
+                    $scope.listarCompetencia();
+                });
+            });
+        }
+        llamar();
 
         
         //para regresar al anterior windows..
@@ -35,7 +52,8 @@ app
         $scope.listarCompetencia = function(){
            API.Competencia.list().$promise.then(function(r){
                $scope.lista_comp = r.results; 
-               ponderado = null;                 
+               ponderado = null;  
+               compare();              
            }, function(err){
                 console.log("Error al listar "+err); 
            });
@@ -43,54 +61,70 @@ app
         $scope.listarCompetencia();
 
         //listar las competencias que son agregadas a un perfil
-        $scope.listarCompetenciaPerfil = function(){
+        listarCompetenciaPerfil = function(){
            API.CompetenciaPerfil.list({subareaperfil:sap_id}).$promise.then(function(r){
                $scope.lista_cp = r; 
-               $scope.suma = contarId($scope.lista_cp);
-               $scope.resta = 100 - $scope.suma;  
+               // $scope.suma = contarId($scope.lista_cp);
+               // $scope.resta = 100 - $scope.suma;  
            }, function(err){
                 console.log("Error al listar "+err); 
            });
         };
-        $scope.listarCompetenciaPerfil();
+        listarCompetenciaPerfil();
 
+        // listaCompPerfil = function(){
+        //     API.CompetenciaPerfil.list({subarea:$scope.saperfil.subarea_id}).$promise.then(function(r){
+        //        $scope.listacp= r; 
+        //        $scope.suma = contarId($scope.listacp);
+        //        $scope.resta = 100 - $scope.suma;  
+        //     });
+        // };
+        // listaCompPerfil();
+
+    //====================================================================
         // Aqui agragamos una competencia a un perfil utilizando la funcion 
         // buscarC para no guardar repetidos
-        $scope.guardarCP = function (subarea,competencia,ponderado){
-            $scope.competenciaperfil = {};
-            $scope.competenciaperfil = { 'subareaperfil': subarea, "competencia":competencia, "ponderado":ponderado};
+    //====================================================================
+    $scope.guardarCP = function (subarea,competencia,ponderado){
+        $scope.competenciaperfil = {};
+        $scope.competenciaperfil = { 'subareaperfil': subarea, "competencia":competencia, "ponderado":ponderado};
             
-        if (ponderado != null) {
-            if (buscarC(competencia, $scope.lista_cp) == competencia) {
-            $scope.competenciaperfil = {ponderado: ''};
-            toastr.error('La Competencia ya existe');
-            } else {
-                    if (($scope.resta) >= ponderado) {
-                        API.CompetenciaPerfil.save($scope.competenciaperfil).$promise.then(function(r) {
-                        console.log("r: " + r);
-                        $scope.competenciaperfil = {};
-                        toastr.success('Se agrego correctamente');
-                        $scope.listarCompetenciaPerfil();
-                        list();
-                        }, function(err) {
-                            console.log("Err " + err  );
-                        }); 
-                    } else {
-                        toastr.error('El total del ponderado sobrepasa');
-                    }
-            }
+    if (ponderado != null) {
+        if (buscarC(competencia, $scope.lista_cp) == competencia) {
+        $scope.competenciaperfil = {ponderado: ''};
+        toastr.error('La Competencia ya existe');
         } else {
-            toastr.warning('Ingrese un ponderado valido de (1-100)');
-        }  
-        $scope.listarCompetencia();           
+                if (($scope.resta) >= ponderado) {
+                    API.CompetenciaPerfil.save($scope.competenciaperfil).$promise.then(function(r) {
+                    console.log("r: " + r);
+                    $scope.competenciaperfil = {};
+                    toastr.success('Se agrego correctamente');
+                    listarCompetenciaPerfil();
+                    list();
+                    llamar();
+                    }, function(err) {
+                        console.log("Err " + err  );
+                    }); 
+                } else {
+                    toastr.error('El total del ponderado sobrepasa');
+                }
+        }
+    } else {
+        toastr.warning('Ingrese un ponderado valido de (1-100)');
+    }  
+    $scope.listarCompetencia();           
      }; 
 
+    //====================================================================
      //competecias
+    //====================================================================
     $scope.cancel = function() {
         $mdDialog.cancel();
     };
 
+    //====================================================================
     //funcion para sumar los ponderados del Area
+    //====================================================================
     function contarId(lista){
         var cont = 0;
         for(var f in lista){
@@ -101,7 +135,9 @@ app
         return cont;    
     }
 
+    //====================================================================
     //mdDialog para nuevas competencias
+    //====================================================================
     $scope.new = function(evt) {
         $scope.competencia = {};
         $mdDialog.show({
@@ -116,7 +152,9 @@ app
         }, function() {});
     };
 
+    //====================================================================
     //end mdDialog para guardar las nuevas competencias que se agrega
+    //====================================================================
     $scope.save = function() {
             API.Competencia.save($scope.competencia).$promise.then(function(r) {
                 console.log("r: " + r);
@@ -127,6 +165,9 @@ app
             });
     };
 
+    //====================================================================
+    //para elmiminar las competencias del perfil
+    //====================================================================
     $scope.delete = function(d) {
         var confirm = $mdDialog.confirm()
           .title('Desea Eliminar Competencia?')
@@ -138,7 +179,7 @@ app
         $mdDialog.show(confirm).then(function() {
                 API.CompetenciaPerfil.delete({ id: d.id }).$promise.then(function(r) {
                     console.log("r: " + r);
-                    $scope.listarCompetenciaPerfil();
+                    listarCompetenciaPerfil();
                     list();
                     toastr.info('Se elimino correctamente');
                 }, function(err) {
@@ -149,7 +190,10 @@ app
         });
     };
 
-    $scope.showInput = function(d,html_id){  //para mostrar el input de editar ponderado
+    //====================================================================
+    //para mostrar el input de editar ponderado
+    //====================================================================
+    $scope.showInput = function(d,html_id){  
         d.isEditable = true;
         $timeout(function() {
             var element = $window.document.getElementById(html_id);
@@ -158,11 +202,14 @@ app
           });
     };
 
-    $scope.editPtj = function(e,d){        //funcion para eventos del teclado
+    //====================================================================
+    //funcion para eventos del teclado
+    //====================================================================
+    $scope.editPtj = function(e,d){        
         switch(e.keyCode){
             case 27:                        //teclado ESC sin guardar o calcel
                 d.isEditable = false;
-                $scope.listarCompetenciaPerfil();
+                listarCompetenciaPerfil();
                 break;
             case 13:                        //teclado INTRO para guardar la actualizacion del ponderado mediante el Input
                 if (d.ponderado!=null) {
@@ -170,7 +217,7 @@ app
                         API.CompetenciaPerfil.update({ id: d.id }, d).$promise.then(function(r) {
                                 console.log("r: " + r);
                                 toastr.success('Se Actualizo Satisfactoriamente');
-                                $scope.listarCompetenciaPerfil();
+                                listarCompetenciaPerfil();
                             }, function(err) {
                                 console.log("Err " + err);
                             });
@@ -185,11 +232,27 @@ app
         }
     };
 
+    //====================================================================
     //======Funcion para ocultar INPUT al hacer clic fuera del input===///
+    //====================================================================
     $scope.ocultarInput = function(d){          //funcion para ocultar al hacer click fura del input
         d.isEditable = false;
-        $scope.listarCompetenciaPerfil();
+        listarCompetenciaPerfil();
     };
+
+    //================================================================
+    //funcion filterstart
+    //================================================================
+    function compare(){
+        for (var j = 0; j < $scope.lista_CP.length ; j++) {
+            for (var i = 0; i < $scope.lista_comp.length ; i++) {
+                if($scope.lista_comp[i].nombre===$scope.lista_CP[j].competencia){
+                    $scope.lista_comp.splice(i,1);
+                }
+            }                 
+        }
+    }
+    compare();
 
 }) 
 

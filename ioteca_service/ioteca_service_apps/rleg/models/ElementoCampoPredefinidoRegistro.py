@@ -9,7 +9,7 @@ class ElementoCampoPredefinidoRegistro(models.Model):
     data = models.CharField(max_length=100)
 
     def __str__(self):
-        return u'%s' % self.elemeto_campo_pred.elemento.nombre
+        return('{0}: {1} => {2}'.format(self.elemento_campo_pred.elemento.nombre,self.elemento_campo_pred.campo_predefinido.nombre,self.data))
 
     class Meta:
         verbose_name = "Elemento Campo Predefinido Registro"

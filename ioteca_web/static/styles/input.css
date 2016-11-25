@@ -24,7 +24,7 @@
 	  border: 2px solid #blue;
 	  font-size: 13px;
 	  font-family: Arial;
-	  padding-left: 7px; /* espacio para izquierda*/
+	  padding-left: 50px; /* espacio para izquierda*/
 	  /*padding-right: 0px;*/
 	  padding-top: 4px; /* espacio para arriba*/
 	  padding-bottom: 4px; /* espacio para abajo*/
@@ -162,7 +162,7 @@
     background:#fff;
     border-radius: 8px;
     box-shadow: 1.5px 1.5px 1.5px 0px #0091EA;
-    margin-left:3em;
+    margin-left:1em;
     padding:1em;
     margin-bottom:2.4em;
     position:relative;
@@ -170,6 +170,20 @@
     bottom:1em;
     right: 0.7em;
     /* left: 0.7em; */
+}
+
+#txtarea {
+  width: 500px;
+  background:#fff;
+  border-radius: 8px;
+  box-shadow: 1.5px 1.5px 1.5px 0px #778899;
+  margin-left:1em;
+  padding:1em;
+  margin-bottom:2.4em;
+  position:relative;
+  top: 0.7em;
+  bottom:1em;
+  right: 0.7em;
 }
 
 #upload{
@@ -378,3 +392,4 @@
 .a-update{
     text-shadow: 2px 2px 2px #cccdcd;
 }
+
