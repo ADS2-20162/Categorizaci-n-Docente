@@ -2,8 +2,8 @@
 var loginUrl = 'http://localhost:9000/auth_web/';
 var iotecaUrl = 'http://localhost:9000/ioteca_web/';
 
-var client_id = 'rBJT5POSKUadKmnEe3sdtNQW707SiU0EK9LDIPZ0';
-var client_secret = 'mlendcpKfqvK7KuLYZiGXi18E9mNzMpChkSrE02i4jqJuZUiZXvP4JHNUJzAkSaVNqBffn5Qjatr62mcr40VKUQSFwYTjV3rCrjtgaMRIYNaYJwXFC1EgPnsunbybOCM'
+var client_id = 'p9X1WBIAKyJcZuW0P4oUnNjmR3i9in01neGPRjSn';
+var client_secret = 'Z5mTaInTArzgws7dVdMsCe9GhaL40cHFFiEWj16iKlQLoDhiqJcmCOklsIERg1l56j3qOWy9AB3kHTPLGgjeFCfhbdjqZqwziCo4TkRanqaRQF5dQPeYfbf0086mTNnU';
 
 var grant_type = 'password';
 

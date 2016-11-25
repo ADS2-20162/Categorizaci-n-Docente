@@ -57,7 +57,7 @@
                                                         <label ng-if="d.d_texto != null">{{d.d_texto | limitTo: 40 }}{{d.d_texto.length > 40 ? '...' : ''}}</label>
                                                         <label ng-if="d.d_number != null">{{d.d_number}}</label>
                                                         <label ng-if="d.d_decimal != null">{{d.d_decimal}}</label>
-                                                        <label ng-if="d.d_fecha != null">{{d.d_fecha}}</label>
+                                                        <label ng-if="d.d_fecha != null">{{d.d_fecha | date:'medium'}}</label>
                                                         <label ng-if="d.d_imagen != null">{{d.d_imagen}}</label>
                                                         <label ng-if="d.d_archivo != null">{{d.d_archivo}}</label>
                                                         <label ng-if="d.d_url != null">{{d.d_url}}</label>
